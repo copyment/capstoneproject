@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./csss/checkout.css">
+</head>
+
+<body>
+    <!--------- PAGE HEADER S --------->
+    <header>
+        <nav>
+            <div class="logo-search">
+                <img href="/home" src="./LOGO/ld white.png" class="logos">
+                <div class="icon">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                </div>
+            </div>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/bcollection">Books</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!--------- PAGE HEADER E --------->
+    <div class="container">
+
+        <form action="/request" method="POST">
+            <div class="row">
+                <div class="col">
+                    <h3 class="title">billing address</h3>
+                    <div class="inputBox">
+                        <span>full name :</span>
+                        <input type="text" placeholder="ENTER FULLNAME" name="fullname" value="{{name}}">
+                    </div>
+                    <div class="inputBox">
+                        <span>email :</span>
+                        <input type="email" placeholder="example@example.com" value="{{email}}">
+                    </div>
+                    <div class="inputBox">
+                        <span>address :</span>
+                        <input type="text" placeholder="room - street - locality" value="{{address}}">
+                    </div>
+                    <div class="flex">
+                        <div class="inputBox">
+                            <span>ID Number :</span>
+                            <input type="text" placeholder="2099999" value="{{idNumber}}">
+                        </div>
+                        <div class="inputBox">
+                            <span>Mobile Number :</span>
+                            <input type="text" placeholder="123 456" value="{{contact}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <input type="hidden" name="userId" value="{{ userId }}">
+                <input type="hidden" name="fullname" value="{{ name }}">
+                <input type="hidden" name="idNumber" value="{{ idNumber }}">
+                <input type="hidden" name="bookId" value="{{ bookId }}">
+                <input type="hidden" name="title" value="{{ title }}">
+                <input type="hidden" name="author" value="{{ author }}">
+                <input type="hidden" name="edition" value="{{ edition }}">
+                <input type="hidden" name="access" value="{{ access }}">
+                <input type="hidden" name="callNumber" value="{{ callNumber }}">
+                <input type="hidden" name="dateRequested" value="{{ Date.now }}">
+                <input type="hidden" name="requestStatus" value="pending">
+
+                <button type="button" class="request-btn" id="proceedToCheckout">proceed to checkout</button>
+
+
+        </form>
+
+        <div class="container2">
+            <h3 class="title">Item List</h3>
+            <div class="order-item">
+                <img src ="data:image/jpeg;base64, {{ image }}" alt="{{ title }}">
+                <div class="item-info">
+                    <h3 class="item-name">{{ title }}</h3>
+                    <p class="item-description">Edition: {{ edition }}</p>
+                    <p class="item-description">Author: {{ author }}</p>
+                </div>
+            </div>
+        </div>
+    
+    </div>    
+
+<script>
+  document.getElementById('proceedToCheckout').addEventListener('click', function() {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, proceed!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If the user clicks "Yes, proceed", you can save the data and show a success message.
+        // You can make an AJAX request to your server to save the data.
+
+        // Example AJAX request using Fetch API:
+        fetch('/request', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: "{{ userId }}",
+            access: "{{ access }}",
+            fullname: "{{ name }}",
+            idNumber: "{{ idNumber }}",
+            bookId: "{{ bookId }}",
+            title: "{{ title }}",
+            callNumber: "{{ callNumber }}",
+            edition: "{{ edition }}",
+            dateRequested: "{{ Date.now }}",
+            requestStatus: "Pending"
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === "Request saved successfully") {
+            Swal.fire('Success!', 'Your request has been processed.', 'success')
+                .then(() => {
+                    // Redirect to a success page or update the UI
+                    window.location.href = '/myreserved';
+            }); 
+          } else {
+            Swal.fire({
+              title: "Failed!",
+              text: "Your request could not be processed.",
+              icon: "error"
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          Swal.fire({
+            title: "Failed!",
+            text: "Your request could not be processed.",
+            icon: "error"
+          });
+        });
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>

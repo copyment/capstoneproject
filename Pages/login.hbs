@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./csss/login.css">
+    <title>Log in</title>
+</head>
+
+<body>
+    <div class="container1">
+            <!--------- PAGE HEADER S --------->
+            <nav>
+                <img src="./LOGO/Vector.png" class="logo">
+                <ul>
+                    <li><a href="/FRONT"> HOME </a></li>
+                    <li><a href="/login"> LOG IN </a></li>
+                </ul>
+            </nav>
+            <!--------- PAGE HEADER E --------->
+            
+            <!----- LOG IN FORM S ----->
+            <div class="container">
+                <form action="/login" method="post">
+                    <h2> THE LIBRARY </h2>
+                    <div class="content">
+                        <div class="input-box">
+                            <label for="username"> Username </label>
+                            <input type="text" placeholder="ENTER USERNAME" name="username" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="password"> Password </label>
+                            <input type="password" placeholder="ENTER PASSWORD" name="password" required>
+                        </div>
+                            <div class="error-message" id="error-message">
+                                {{#if errorMessage}}
+                                    {{errorMessage}}
+                                {{/if}}
+                            </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button type="submit">LOG IN</button>
+                    </div>
+                    <p>Don't have account yet? Signup<a href="/signup"> here</a></p>
+                </form>
+            </div>
+            <!----- LOG IN FORM E ----->
+    </div>
+
+</body>
+</html>

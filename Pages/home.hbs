@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DASHBOARD</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./csss/style.css">
+</head>
+<body>
+    <!--------- HEADER S--------->
+    <header>
+        <nav>
+            <div class="logo-search">
+                <img href="/home" src="./LOGO/ld white.png" class="logos">
+                <div class="icon">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                </div>
+            </div>
+            <ul>
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="/bcollection">Books</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    <!--------- HEADER E--------->
+
+        <!--------- SIDE MENU ROW S--------->
+        <section class="hero">
+            
+            <div class="side-bar">
+                <h4><i class="fa-solid fa-bars"> </i>USER</h4>
+                <ul>
+                    <li>
+                        <i class="fa-solid"></i>
+                        <a href="/profile">My Profile</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid"></i>
+                        <a href="myborrow.html">My Borrowed</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid"></i>
+                        <a href="/myreserved">My Request</a>
+                    </li>
+                    <li>
+                    <i class="fa-solid"></i>
+                        <a href="/myreserved">My Transaction</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid"></i>
+                        <a href="/logout">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content">
+                <div class="div-text">
+                    <span>Top Books</span>
+                    <h1>COLLECTION OF THE WEEK</h1>
+                    <p> Browse top books from our collection.</p>
+                    <a href="/toppages" class="btn">BROWSE</a>
+                </div>
+            </div>
+        </section>
+        <!--------- SIDE MENU ROW E--------->
+
+        <!--------- TOP BOOK ROW S--------->
+        <section class="sec-2">
+
+            <!--------- TOP BOOK S--------->
+            <div class="side-bar">
+                <div class="titile">
+                    <h4> TOP BOOK </h4>
+                </div>
+                {{#each topBooks}}
+                <div class="item">
+                    <div class="div-img2">
+                        <img src="data:image/jpeg;base64,{{this.ItemImage}}" alt="{{this.Title}}">
+                    </div>
+                    <div class="div-text">
+                        <h4><a href="/item?bookId={{this._id}}">{{this.Title}}</a></h4>
+                        <p>{{this.CreatorAuthor}}</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <!--------- TOP BOOK E--------->
+
+            <!--------- NEW BOOKS S--------->
+            <div class="content">
+                <div class="titile">
+                    <h4>NEW BOOKS in COLLECTION</h4>
+                    <a href="#">More</a>
+                </div>
+
+                <div class="all-items">
+                    {{#each latestBooks}}
+                            <div class="item">
+                                <div class="div-img">
+                                    <img src="data:image/jpeg;base64,{{this.ItemImage}}" alt="{{this.Title}}">
+                                </div>
+                                <div class="div-text">
+                                    <h4><a href="/item?bookId={{this._id}}">{{this.Title}}</a></h4>
+                                    <p>{{this.CreatorAuthor}}</p>
+                                </div>
+                            </div>
+                            {{/each}}
+
+            <!--------- NEW BOOKS E--------->
+        </section>
+        <!--------- TOP BOOK ROW E--------->
+
+        <!--------- UPCOMING ROW S--------->
+        <section class="sec-3">
+
+            <!--------- UPCOMING SIDE S--------->
+            <div class="side-bar">
+                <div class="titile">
+                    <h4>Your Recent Reads</h4>
+                    <a href="#">More</a>
+                </div>
+
+                <div class="boxs">
+                    <div class="box">
+                        <img src="./imgs/bok2.jpg" alt="">
+                        <div class="div-text">
+                            <h4>The Mind leader</h4>
+                            <del>UNAVAILABLE</del>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <img src="./imgs/bok8.jpeg" alt="">
+                        <div class="div-text">
+                            <h4>Lunar storm</h4>
+                            <del>UNAVAILABLE</del>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <img src="./imgs/bok9.jpeg" alt="">
+                        <div class="div-text">
+                            <h4>Crack Code</h4>
+                            <del>UNAVAILABLE</del>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <img src="./imgs/bok10.jpg" alt="">
+                        <div class="div-text">
+                            <h4>Sin Eater</h4>
+                            <del>UNAVAILABLE</del>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--------- UPCOMING SIDE E--------->
+
+            <!--------- THE COLLECTION S--------->
+            <div class="content">
+                <div class="bg-sec">
+                    <div class="div-text">
+                        <h1>THE COLLECTION</h1>
+                        <p>Browse from our extensive book collection</p>
+                        <a href="/bcollection" class="btn">Browse</a>
+                    </div>
+                </div>
+            <!--------- RANDOM BOOKS S--------->
+                <div class="all-items" id="">
+                    {{#each randomBooks}}
+                        <div class="item">
+                            <div class="div-img">
+                                <img src="data:image/jpeg;base64,{{this.ItemImage}}" alt="{{this.Title}}">
+                            </div>
+                            <div class="div-text">
+                                <h4><a href="/item?bookId={{this._id}}">{{this.Title}}</a></h4>
+                                <p>{{this.CreatorAuthor}}</p>
+                            </div>
+                        </div>
+                    {{/each}}
+                <!--------- RANDOM BOOKS E--------->
+                </div>
+            </div>
+            <!--------- THE COLLECTION E--------->
+        </section>
+        <!--------- UPCOMING ROW E --------->
+
+</body>
+</html>

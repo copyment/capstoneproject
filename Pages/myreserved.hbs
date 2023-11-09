@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reserved</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./csss/ordercss.css">
+</head>
+
+<body>
+    <!--------- PAGE HEADER S --------->
+    <header>
+        <nav>
+            <div class="logo-search">
+                <img href="/home" src="./LOGO/ld white.png" class="logos">
+                <div class="search-box">
+                </div>
+                <div class="icon">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                </div>
+            </div>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/bcollection">Books</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!--------- PAGE HEADER E --------->
+
+    <!--------- SIDE MENU S --------->
+    <section class="hero">
+        <div class="side-bar">
+            <h4><i class="fa-solid fa-bars"> </i>USER</h4>
+            <ul>
+                <li>
+                    <i class="fa-solid"></i>
+                    <a href="/profile">My Profile</a>
+                </li>
+                <li>
+                    <i class="fa-solid"></i>
+                    <a href="myborrow.html">My Borrowed</a>
+                </li>
+                <li style="background-color: rgb(83, 241, 151);">
+                    <i class="fa-solid"></i>
+                    <a href="myreserved.html">My Reserved</a>
+                </li>
+                <li>
+                    <i class="fa-solid"></i>
+                    <a href="/FRONT">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!--------- SIDE MENU E --------->
+
+    <!--------- BORROWED COLLECTION S --------->
+    <section class="sec-2">
+        <div class="content">
+            <div class="titile">
+                <h4> MY RESERVED </h4>
+            </div>
+
+            <div class="container">
+                {{#each reservedBooks}}
+                <div class="order-item">
+                    <img src="data:image/jpeg;base64,{{ this.Image }}" alt="{{this.Title}}">
+                    <div class="item-info">
+                        <h3 class="item-name">{{this.Title}}</h3>
+                        <p class="item-description">Author: {{this.Author}}</p>
+                        <p class="order-status">Status: {{this.RequestStatus}} </p>
+                    </div>
+                    <button type="submit" class="view-details-button">
+                        <a href="/status?borrowid={{this._id}}">View Details</a>
+                    </button>
+
+                </div>
+                {{/each}}
+
+            </div>
+        </div>
+    </section>
+    <!--------- BORROWED COLLECTION E --------->
+</body>
+</html>

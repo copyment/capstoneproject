@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{book.Title}}</title>
+    <link rel = "stylesheet" href="./csss/item.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!--------- HEADER S--------->
+        <header>
+            <nav>
+                <div class="logo-search">
+                    <img href="/home" src="./LOGO/ld white.png" class="logos">
+                    <div class="search-box">
+                        <input type="search" placeholder="Search Here...">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div class="icon">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    </div>
+                </div>
+                <ul>
+                    <li><a href="/home">HOME</a></li>
+                    <li><a href="/bcollection">Books</a></li>
+                </ul>
+            </nav>
+        </header>
+    <!--------- HEADER E--------->
+
+    <div class = "main-wrapper">
+
+
+        <div class = "container">
+            <div class = "product-div">
+                <div class = "product-div-left">
+                    <div class = "img-container">
+                        <img src ="data:image/jpeg;base64,{{ book.ItemImage }}" alt="{{ book.Title }}">
+                    </div>
+                    <div class = "hover-container">
+                        <div><img src = "data:image/jpeg;base64,{{ book.ItemImage }}" alt="{{ book.Title }}"></div>
+                        <!--<div><img src = "imgs/bok2.jpg"></div>-->
+                    </div>
+                </div>
+                <div class = "product-div-right">
+                    <span class = "product-name">{{book.Title}}</span>
+                    <span class = "product-price">{{book.CreatorAuthor}}</span>
+                    <div class = "product-rating">
+                        <span>{{book.EditionNumber}} Edition</span>
+                    </div>
+                    <p class = "product-description">{{book.Description}}</p>
+
+                    <div class = "btn-groups">
+                        
+                        <form action="/check" method="post">
+                            <input type="hidden" name="userId" value="{{ user._id }}">
+                            <input type="hidden" name="bookId" value="{{ book._id }}">
+                            <input type="hidden" name="name" value="{{user.Fullname}}">
+                            <input type="hidden" name="userName" value="{{ user.Username }}">
+                            <input type="hidden" name="idNumber" value="{{ user.IDNumber }}">
+                            <input type="hidden" name="title" value="{{ book.Title }}">
+                            <input type="hidden" name="author" value="{{ book.CreatorAuthor }}">
+                            <input type="hidden" name="callNumber" value="{{ book.CallNumber }}">
+                            <input type="hidden" name="contact" value="{{ user.ContactNumber }}">
+                            <input type="hidden" name="address" value="{{user.Address}}">
+                            <input type="hidden" name="email" value="{{user.Email}}">
+                            <input type="hidden" name="edition" value="{{book.EditionNumber}}">
+                            <input type="hidden" name="image" value="{{ book.ItemImage }}">
+                            <button type="submit" class="request-btn"><i class="fas fa-wallet"></i> Request Now</button>
+                            <button type ="button" class = "add-cart-btn"><i class="fa-solid fa-book-bookmark"></i>  Bookmark </button>
+                        </form>
+
+                        <div class="available-copies">
+                        <span>Available Copies:{{ availableCopiesCount}}</span> <!-- AVAILABLE COPIES COUNT -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./jss/product.js"></script>
+</body>
+</html>

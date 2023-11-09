@@ -1,0 +1,112 @@
+<!--------- BORROWED COLLECTION E --------->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./csss/profilecss.css">
+</head>
+
+<body>
+    <!-------- PAGE HEADER START -------->
+    <header>
+        <nav>
+            <div class="logo-search">
+                <img href="/home" src="./LOGO/ld white.png" class="logos">
+                <div class="icon">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                </div>
+            </div>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/bcollection">Books</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-------- PAGE HEADER END -------->
+
+    <!--------- SIDE MENU S --------->
+    <section class="hero">
+        <div class="side-bar">
+            <h4><i class="fa-solid fa-bars"> </i>USER</h4>
+            <ul>
+                <li style="background-color:  rgb(83, 241, 151);">
+                    <i class="fa-solid"></i>
+                    <a href="/profile">My Profile</a>
+                </li>
+                <li>
+                    <i class="fa-solid"></i>
+                    <a href="myborrow.html">My Borrowed</a>
+                </li>
+                <li>
+                    <i class="fa-solid"></i>
+                    <a href="/myreserved">My Reserved</a>
+                </li>
+                <li>
+                    <i class="fa-solid"></i>
+                    <a href="/FRONT">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!--------- SIDE MENU E --------->
+
+    <!--------- USER INFORMATION S --------->
+    <section class="sec-2">
+        <div class="content">
+             <div class="titile">
+                <h4> MY PROFILE </h4>
+            </div>
+                <div class="user-info">
+                    <div class="info-box">
+                        <h4>Fullname</h4>
+                        <p>{{ user.Fullname }}</p>
+                    </div>
+                </div>
+                <div class="user-info1">
+                    <div class="info-box1">
+                    <img src="data:image/jpeg;base64,{{ user.ProfilePicture }}" id="profile-pic" alt="Profile Picture">
+                    <label for="input-file"> UPDATE PHOTO </label>
+                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file"> 
+                    </div>
+                </div> 
+                <div class="user-info">
+                    <div class="info-box">
+                        <h4>Address</h4>
+                        <p>{{ user.Address }}<p>
+                    </div>
+                    <div class="info-box">
+                        <h4>Contact Number</h4>
+                        <p>{{ user.ContactNumber }}</p>
+                    </div>
+                    <div class="info-box">
+                        <h4>ID Number</h4>
+                        <p>{{ user.IDNumber }}</p>
+                    </div>
+                    <div class="info-box">
+                        <h4>Member Type</h4>
+                        <p>{{ user.AccountType }}</p>
+                    </div>
+                    <div class="info-box">
+                        <h4>Date Joined</h4>
+                        <p>{{ formattedRegistrationDate }}</p>
+                    </div>
+                    <div class="info-box">
+                        <h4>Username</h4>
+                        <p>{{ user.Username }}</p>
+                    </div>
+                    <div class="info-box">
+                        <h4>Password</h4>
+                        <p>{{ user.Password }}</p>
+                    </div>
+                </div>
+        </div>
+    </section>
+    <!--------- USER INFORMATION E --------->
+
+</body>
+</html>

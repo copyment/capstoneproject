@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./csss/registration.css">
+    <title>Registration</title>
+
+</head>
+<body>
+    <div class="container1">
+        <!--------- HEADER S--------->
+        <nav>
+            <img src="./LOGO/Vector.png" class="logo">
+            <ul>
+                <li><a href="/FRONT"> HOME </a></li>
+                <li><a href="/login"> LOG IN </a></li>
+            </ul>
+        </nav>
+        <!--------- HEADER E --------->
+
+        <!--------- FORM S --------->
+        <div class="container">
+            <form action="/signup" method="post" enctype="multipart/form-data">
+                <h2> Create an Account </h2>
+                <div class="content">
+                    <div class="input-box">
+                        <label for="fullname"> Fullname </label>
+                        <input type="text" placeholder="Enter fullname" name="fullname" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="address"> Address </label>
+                        <input type="text" placeholder="Enter Address" name="address" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="birthday"> Birthday </label>
+                        <input type="date" placeholder="Enter your Birthday" name="birthday" id="birthday" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="age"> Age </label>
+                        <input type="number" placeholder="Enter your Age" name="age" id="age" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="username"> Email </label>
+                        <input type="text" placeholder="Enter Email Address" name="email" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="contact"> Contact Number </label>
+                        <input type="number" placeholder="Enter Contact Number" name="contact" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="idnumber"> ID Number </label>
+                        <input type="number" placeholder="Enter ID number" name="idnumber" id="id" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="profilePicture">Profile Picture</label>
+                        <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
+                    </div>
+                    <div class="input-box">
+                        <label for="username"> Username </label>
+                        <input type="text" placeholder="Enter username" name="username" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="rfid"> RFID </label>
+                        <input type="text" placeholder="Enter your RFID or None" name="rfid">
+                    </div>
+                    <div class="input-box">
+                        <label for="password"> Password </label>
+                        <input type="password" placeholder="Enter password" name="password" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="cpassword"> Confirm Password </label>
+                        <input type="password" placeholder="Enter Password" name="cpassword" required>
+                    </div>
+                    <span class="gender-title">Member Type</span>
+                    <div class="account-type">
+                        <input type="radio" name="account" id="Student" value="Student">
+                        <label for="account">Student</label>
+                        <input type="radio" name="account" id="Teacher" value="Faculty">
+                        <label for="account">Faculty</label>
+                    </div>
+                    <input type="hidden" name="status" value="Active">
+                </div>
+                    <div class="error-message" id="error-message">
+                                {{#if errorMessage}}
+                                    {{errorMessage}}
+                                {{/if}}
+                    </div>
+                <div class="alert">
+                    <p>By signing up and creating an account, you agree to the following <a href="#">Terms and Conditions</a>
+                    :You must provide accurate and current information during 
+                    the registration process. .</p>
+                </div>
+                <div class="button-container">
+                    <button type="submit">Register</button>
+                </div>
+                <p>Already Have an account? Login<a href="/login"> here</a></p>
+            </form>
+        </div>
+        <!--------- FORM E --------->
+
+    </div>
+
+    <script src="./jss/error.js"></script>
+    <script src="./jss/birth.js"></script>
+</body>
+</html>

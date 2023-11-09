@@ -1,0 +1,170 @@
+/*-------------- FONT S --------------*/
+@font-face {
+    font-family: 'font';
+    src: url(/font/PlayfairDisplay-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family: 'head';
+    src: url(/font/Lobster-Regular.ttf);
+}
+@font-face {
+    font-family: 'para';
+    src: url(/font/Cinzel-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family: 'castro';
+    src: url(/font/CastoroTitling-Regular.ttf);
+}
+
+
+/*-------------- FONT E --------------*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.container1 {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.3), transparent), url(/imgs/logg.jpg);
+    background-size: cover;
+    background-position: center;
+    padding:  0 8%;
+    position: relative;
+}
+
+/*-------------- PAGE HEADER START --------------*/
+nav{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 5px 0;
+}
+.logo {
+    width: 120;
+    height: 90px;
+    cursor: pointer;
+}
+
+nav ul{
+    flex: 1;
+    text-align:  right;
+    padding-right: 5;
+}
+nav ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+    font-family: 'castro';
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    transition: width 0.5s;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/*-------------- PAGE HEADER END --------------*/
+
+/*-------------- LOG IN FORM START --------------*/
+
+.container{
+    background-color: rgb(255, 255, 255);
+    background-size: cover;
+    max-width: 650px;
+    padding: 28px;
+    margin: 10% 22%;
+    box-shadow: 0 15px 20px #ABB289;
+}
+h2{
+    font-family: 'head';
+    font-size: 40px;
+    font-weight: 600;
+    text-align: left;
+    color: rgba(27, 161, 40, 0.984);
+    padding-bottom: 1px solid silver;
+}
+.content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+.input-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    padding-bottom: 10px;
+}
+.input-box:nth-child(2n){
+    justify-content: end;
+}
+.input-box label, .gender-title {
+    font-family: 'para';
+    width: 95%;
+    color: rgba(27, 161, 40, 0.984);
+    font-weight: bold;
+    margin: 5px 0;
+}
+.input-box input {
+    height: 40px;
+    width: 95%;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.input-box input:is(:focus, :valid){
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+.button-container{
+    margin: 15px 0;
+}
+.button-container button{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    display: block;
+    font-family: 'font';
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background: rgba(27, 161, 40, 0.984);
+}
+.button-container button:hover{
+    background-image: linear-gradient(to right, #866303,#c28f04);
+    background: rgba(6, 69, 12, 0.984);
+}
+/*-------------- LOG IN FORM END --------------*/
+
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
