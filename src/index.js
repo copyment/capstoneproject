@@ -1,5 +1,7 @@
 const express = require('express')
 const mongoose=require("mongoose")
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 var session = require("express-session");
 const app = express()
 var path = require("path")
@@ -25,6 +27,8 @@ app.locals.resizeImage = (image) => {
 
 
 const tempelatePath=path.join(__dirname,'../Pages')
+app.use(cookieParser());
+app.use(express.json());
 app.use(express.static('Pages'));
 app.use(express.static('imgs'));
 app.use(express.static('csss'));
@@ -46,6 +50,7 @@ app.use(express.urlencoded({ limit: '50mb', extended:false}))
 // TO ACCESS OR OPEN THE PAGES S
 app.get("/", (req,res)=>{
     res.render("FRONT")
+    res.send("API WORKING SUCCESS");
 })
 app.get("/signup", (req,res)=>{
     res.render("signup")
