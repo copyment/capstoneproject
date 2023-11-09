@@ -50,7 +50,6 @@ app.use(express.urlencoded({ limit: '50mb', extended:false}))
 // TO ACCESS OR OPEN THE PAGES S
 app.get("/", (req,res)=>{
     res.render("FRONT")
-    res.send("API WORKING SUCCESS");
 })
 app.get("/signup", (req,res)=>{
     res.render("signup")
