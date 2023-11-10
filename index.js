@@ -51,7 +51,7 @@ app.use(express.urlencoded({ limit: '50mb', extended:false}))
 
 // TO ACCESS OR OPEN THE PAGES S
 app.get("/", (req,res)=>{
-    res.send("API WORKING SUCCESS");
+    res.render("FRONT")
 })
 app.get("/signup", (req,res)=>{
     res.render("signup")
@@ -59,9 +59,6 @@ app.get("/signup", (req,res)=>{
 app.get("/login", (req,res)=>{
     res.render("login")
 })
-
-
-
 
 app.get("/home", async (req,res) => {
     try {
