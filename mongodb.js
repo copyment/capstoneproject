@@ -3,7 +3,7 @@ mongoose.set("strictQuery", false);
 
 mongoose.connect("mongodb+srv://virusdetected848:helloworld123@cluster0.mootble.mongodb.net/LMS?retryWrites=true&w=majority")
 .then(()=>{
-    console.log("mongodb connected");
+    console.log("mongodb connectedz");
 })
 .catch(()=>{
     console.log("failed to connect");
