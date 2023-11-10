@@ -28,7 +28,7 @@ app.locals.resizeImage = (image) => {
 };
 
 
-const tempelatePath=path.join(__dirname,'../Pages')
+const tempelatePath=path.join(__dirname,'Pages')
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.static('Pages'));
