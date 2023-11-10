@@ -202,9 +202,9 @@ const RequestSchema = new mongoose.Schema({
     RequestStatus: {type:String,},
 });
 
-const RequestModel = mongoose.model("RequestCollection", RequestSchema, "Requests");
-const User = mongoose.model("UserCollection", UserSchema, "Members");
-const MessageModel = mongoose.model("InquiriesCollection", MessageSchema, "Inquiries");
-const Book = mongoose.model("IItemCollection", BookSchema, "Items");
+const RequestModel = mongoose.model("RequestCollection", RequestSchema, "requests");
+const User = mongoose.model("UserCollection", UserSchema, "members");
+const MessageModel = mongoose.model("InquiriesCollection", MessageSchema, "inquiries");
+const Book = mongoose.model("IItemCollection", BookSchema, "items");
 
 module.exports = {User, MessageModel, Book, RequestModel};
