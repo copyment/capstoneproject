@@ -5,12 +5,17 @@ const cookieParser = require("cookie-parser");
 var session = require("express-session");
 const app = express()
 var path = require("path")
-const {User, MessageModel, Book, RequestModel} = require ("./mongodb");
+const {User, MessageModel, Book, RequestModel,UserActivity} = require ("./mongodb");
 const multer = require("multer");
 const sharp = require('sharp');
 const {format, parseISO} = require("date-fns");
 const crypto = require('crypto');
 const mquery = require('mquery');
+const hbs = require('hbs');
+
+hbs.registerHelper('eq', function (a, b) {
+    return a === b;
+});
 
 
 const storage = multer.memoryStorage();
@@ -71,7 +76,15 @@ app.get("/home", async (req,res) => {
         const topBooks = await Book.aggregate([
             {$sample: { size: 1 }}
         ]);
-        res.render("home", {latestBooks, randomBooks, topBooks});
+        const UserId = req.session.user._id;
+        const recentUserActivity = await UserActivity
+            .find({ UserId })
+            .sort({ Timestamp: -1 })
+            .limit(5)
+        .populate('BookId');
+        
+
+        res.render("home", {latestBooks, randomBooks, topBooks, recentUserActivity});
     } catch (error){
         console.error("Error:", error);
         res.status(500).send("Error occured.")
@@ -129,20 +142,26 @@ app.get("/item", async (req, res) => {
         const bookId = req.query.bookId;
         const book = await Book.findById(bookId); 
 
-
         if (!book) {
             return res.status(404).send("Book not found");
         }
+        req.session.recentReads = req.session.recentReads || [];
+        req.session.recentReads.unshift({ BookId: book._id, Callnumber: book.CallNumber });
 
         const itemsCopiesCollection = mongoose.connection.collection("ItemsCopies");
-
         const filter = {
             CallNumber: book.CallNumber,
             CirculationStatus: "Available"
         };
-
-        
         const count = await itemsCopiesCollection.countDocuments(filter);
+
+        const userActivity = new UserActivity({
+            UserId: req.session.user._id,
+            BookId: book._id,
+            Callnumber: book.CallNumber,
+        });
+
+        await userActivity.save();
 
         res.render("item", {book, user: req.session.user, availableCopiesCount: count}); 
     } catch (error) {
@@ -185,6 +204,26 @@ app.get("/myreserved", async (req, res) => {
         }
         console.log("Reserved Books:", reservedBooks);
         res.render("myreserved", { reservedBooks });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Error occurred while fetching reserved books");
+    }
+});
+
+app.get("/mytransaction", async (req, res) => {
+    try {
+        const userId = req.session.user._id;
+        const reservedBooks = await RequestModel.find({
+            MemberId: userId,
+            $or: [{ RequestStatus: "Completed" }, { RequestStatus: "Cancelled" }, { RequestStatus: "Declined" }]
+        });
+        for (const book of reservedBooks) {
+            const item = await Book.findOne({ CallNumber: book.CallNumber });
+            book.Image = item.ItemImage;
+            book.Author = item.CreatorAuthor;
+        }
+        console.log("Reserved Books:", reservedBooks);
+        res.render("mytransaction", { reservedBooks });
     } catch (error) {
         console.error("Error:", error);
         res.status(500).send("Error occurred while fetching reserved books");
@@ -314,24 +353,24 @@ app.post("/request", async (req, res) => {
         const userId = req.body.userId;
         const name = req.body.fullname;
         const idNumber = req.body.idNumber;
-        const bookId = req.body.bookId;
         const title = req.body.title;
         const callNumber = req.body.callNumber;
         const dateRequested = req.body.dateRequested;
         const requestStatus = req.body.requestStatus;
         const edition = req.body.edition;
         const access = req.body.access;
+        const assest = req.body.assest;
     
         const newRequest = new RequestModel({
             Accession: access,
             MemberId: userId,
-            BookId: bookId,
             Fullname: name,
             IDNumber: idNumber,
             Title: title,
             EditionNumber: edition,
             CallNumber: callNumber,
             RequestStatus: requestStatus,
+            AssestBy: assest,
         });
         const currentDate = new Date(); 
         const formattedDate = currentDate.toISOString();
@@ -396,12 +435,12 @@ app.get("/status", async (req, res) => {
         const user = await User.findOne ({ IDNumber: borrow.IDNumber });
         const book = await Book.findOne({CallNumber: borrow.CallNumber});
         res.render("status", {
-            borrowid: borrow.OrderID,
             title: borrow.Title,
             edition: borrow.Edition,
             author: borrow.CreatorAuthor,
             user: user,
             book: book,
+            requeststatus: borrow.RequestStatus,
         });
     } catch (error) {
         console.error("Error:", error);
@@ -415,7 +454,6 @@ app.post("/cancel-request/:bookId", async (req, res) => {
         const userId = req.session.user._id;
         const request = await RequestModel.findOne({
             MemberId: userId,
-            BookId: bookId,
             RequestStatus: "Pending"
         });
         if (!request) {

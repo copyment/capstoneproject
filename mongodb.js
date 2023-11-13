@@ -1,9 +1,10 @@
 const mongoose=require("mongoose")
 mongoose.set("strictQuery", false);
 
-mongoose.connect("mongodb+srv://virusdetected848:helloworld123@cluster0.mootble.mongodb.net/LMS?retryWrites=true&w=majority")
+mongoose.connect("mongodb://0.0.0.0:27017/LMS")
+//mongoose.connect("mongodb+srv://virusdetected848:helloworld123@cluster0.mootble.mongodb.net/LMS?retryWrites=true&w=majority")
 .then(()=>{
-    console.log("mongodb connectedz");
+    console.log("mongodb connecteds");
 })
 .catch(()=>{
     console.log("failed to connect");
@@ -182,12 +183,8 @@ const BookSchema = new mongoose.Schema({
 
 const RequestSchema = new mongoose.Schema({
     MemberId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'User',
-    },
-    BookId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book',
     },
     Accession: {type: String,},
     Fullname:{ type:String,},
@@ -200,11 +197,37 @@ const RequestSchema = new mongoose.Schema({
     PickupDate: {type: Date, default: new Date('1970-01-01T00:00:00.000Z')},
     PickupDue: {type: Date, default: new Date('1970-01-01T00:00:00.000Z')},
     RequestStatus: {type:String,},
+    AssestBy: {type:String,},
 });
 
+// Create a file userActivity.js
+
+const userActivitySchema = new mongoose.Schema({
+  UserId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  BookId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book',
+    required: true,
+  },
+  Callnumber: {
+    type: String,
+    required: true,
+  },
+  Timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+
+const UserActivity = mongoose.model('UserActivity', userActivitySchema);
 const RequestModel = mongoose.model("RequestCollection", RequestSchema, "requests");
 const User = mongoose.model("UserCollection", UserSchema, "members");
 const MessageModel = mongoose.model("InquiriesCollection", MessageSchema, "inquiries");
 const Book = mongoose.model("IItemCollection", BookSchema, "items");
 
-module.exports = {User, MessageModel, Book, RequestModel};
+module.exports = {User, MessageModel, Book, RequestModel, UserActivity};

@@ -3,7 +3,7 @@ mongoose.set("strictQuery", false);
 
 mongoose.connect("mongodb://0.0.0.0:27017/LMS")
 .then(()=>{
-    console.log("mongodb connected");
+    console.log("mongodb connecteds");
 })
 .catch(()=>{
     console.log("failed to connect");

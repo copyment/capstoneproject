@@ -20,7 +20,7 @@
             <div class="logo-search">
                 <img href="/home" src="./LOGO/ld white.png" class="logos">
                 <div class="icon">
-                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href="#"><i class="fa-solid fa-bookmark"></i></i></a>
                 </div>
             </div>
             <ul>
@@ -74,7 +74,7 @@
 
         <div class="container2">
             <h3 class="title">product details</h3>
-            <p class="item-id">BorrowID: {{ borrowid }}</p>
+            <p class="item-id">Request Status: {{ requeststatus }}</p>
             <div class="order-item">
                 <img src ="data:image/jpeg;base64,{{ book.ItemImage }}" alt="{{Title}}">
             </div>
@@ -85,9 +85,10 @@
             </div>
 
 <form id="cancel-request-form" action="/cancel-request/{{book.id}}" method="POST">
-    <button type="submit" id="cancel-request-button">Cancel Request</button>
+    {{#unless (eq requeststatus "Cancelled")}}
+        <button type="submit" id="cancel-request-button">Cancel Request</button>
+    {{/unless}}
 </form>
-
 
         </div>
 

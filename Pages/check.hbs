@@ -19,7 +19,7 @@
             <div class="logo-search">
                 <img href="/home" src="./LOGO/ld white.png" class="logos">
                 <div class="icon">
-                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href="#"><i class="fa-solid fa-bookmark"></i></i></a>
                 </div>
             </div>
             <ul>
@@ -63,14 +63,14 @@
                 <input type="hidden" name="userId" value="{{ userId }}">
                 <input type="hidden" name="fullname" value="{{ name }}">
                 <input type="hidden" name="idNumber" value="{{ idNumber }}">
-                <input type="hidden" name="bookId" value="{{ bookId }}">
                 <input type="hidden" name="title" value="{{ title }}">
                 <input type="hidden" name="author" value="{{ author }}">
                 <input type="hidden" name="edition" value="{{ edition }}">
-                <input type="hidden" name="access" value="{{ access }}">
+                <input type="hidden" name="access" value="N/A">
                 <input type="hidden" name="callNumber" value="{{ callNumber }}">
                 <input type="hidden" name="dateRequested" value="{{ Date.now }}">
                 <input type="hidden" name="requestStatus" value="pending">
+                <input type="hidden" name="assest" value="username">
 
                 <button type="button" class="request-btn" id="proceedToCheckout">proceed to checkout</button>
 
@@ -114,15 +114,15 @@
           },
           body: JSON.stringify({
             userId: "{{ userId }}",
-            access: "{{ access }}",
+            access: "N/A",
             fullname: "{{ name }}",
             idNumber: "{{ idNumber }}",
-            bookId: "{{ bookId }}",
             title: "{{ title }}",
             callNumber: "{{ callNumber }}",
             edition: "{{ edition }}",
             dateRequested: "{{ Date.now }}",
-            requestStatus: "Pending"
+            requestStatus: "Pending",
+            assest: "Username"
           })
         })
         .then(response => response.json())

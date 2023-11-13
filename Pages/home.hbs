@@ -15,7 +15,7 @@
             <div class="logo-search">
                 <img href="/home" src="./LOGO/ld white.png" class="logos">
                 <div class="icon">
-                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href="#"><i class="fa-solid fa-bookmark"></i></a>
                 </div>
             </div>
             <ul>
@@ -47,7 +47,7 @@
                     </li>
                     <li>
                     <i class="fa-solid"></i>
-                        <a href="/myreserved">My Transaction</a>
+                        <a href="/mytransaction">My Transaction</a>
                     </li>
                     <li>
                         <i class="fa-solid"></i>
@@ -124,37 +124,15 @@
                 </div>
 
                 <div class="boxs">
-                    <div class="box">
-                        <img src="./imgs/bok2.jpg" alt="">
+                    {{#each recentUserActivity}}
+                        <div class="box">
+                        <img src ="data:image/jpeg;base64,{{ this.BookId.ItemImage }}" alt="{{Title}}">
                         <div class="div-text">
-                            <h4>The Mind leader</h4>
+                            <h4>{{Title}}</h4>
                             <del>UNAVAILABLE</del>
                         </div>
-                    </div>
-
-                    <div class="box">
-                        <img src="./imgs/bok8.jpeg" alt="">
-                        <div class="div-text">
-                            <h4>Lunar storm</h4>
-                            <del>UNAVAILABLE</del>
                         </div>
-                    </div>
-
-                    <div class="box">
-                        <img src="./imgs/bok9.jpeg" alt="">
-                        <div class="div-text">
-                            <h4>Crack Code</h4>
-                            <del>UNAVAILABLE</del>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <img src="./imgs/bok10.jpg" alt="">
-                        <div class="div-text">
-                            <h4>Sin Eater</h4>
-                            <del>UNAVAILABLE</del>
-                        </div>
-                    </div>
+                    {{/each}}
                 </div>
             </div>
             <!--------- UPCOMING SIDE E--------->
