@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 var session = require("express-session");
 const app = express()
 var path = require("path")
-const {User, MessageModel, Book, RequestModel,UserActivity} = require ("./mongodb");
+const {User, MessageModel, Book, RequestModel, BookMark} = require ("./mongodb");
 const multer = require("multer");
 const sharp = require('sharp');
 const {format, parseISO} = require("date-fns");
@@ -76,15 +76,8 @@ app.get("/home", async (req,res) => {
         const topBooks = await Book.aggregate([
             {$sample: { size: 1 }}
         ]);
-        const UserId = req.session.user._id;
-        const recentUserActivity = await UserActivity
-            .find({ UserId })
-            .sort({ Timestamp: -1 })
-            .limit(5)
-        .populate('BookId');
-        
 
-        res.render("home", {latestBooks, randomBooks, topBooks, recentUserActivity});
+        res.render("home", {latestBooks, randomBooks, topBooks});
     } catch (error){
         console.error("Error:", error);
         res.status(500).send("Error occured.")
@@ -145,8 +138,6 @@ app.get("/item", async (req, res) => {
         if (!book) {
             return res.status(404).send("Book not found");
         }
-        req.session.recentReads = req.session.recentReads || [];
-        req.session.recentReads.unshift({ BookId: book._id, Callnumber: book.CallNumber });
 
         const itemsCopiesCollection = mongoose.connection.collection("ItemsCopies");
         const filter = {
@@ -155,13 +146,6 @@ app.get("/item", async (req, res) => {
         };
         const count = await itemsCopiesCollection.countDocuments(filter);
 
-        const userActivity = new UserActivity({
-            UserId: req.session.user._id,
-            BookId: book._id,
-            Callnumber: book.CallNumber,
-        });
-
-        await userActivity.save();
 
         res.render("item", {book, user: req.session.user, availableCopiesCount: count}); 
     } catch (error) {
@@ -355,12 +339,32 @@ app.post("/request", async (req, res) => {
         const idNumber = req.body.idNumber;
         const title = req.body.title;
         const callNumber = req.body.callNumber;
-        const dateRequested = req.body.dateRequested;
         const requestStatus = req.body.requestStatus;
         const edition = req.body.edition;
         const access = req.body.access;
         const assest = req.body.assest;
-    
+        const accountType = req.session.user.AccountType; // Assuming user information is stored in the session
+        const maxRequests = accountType === "Student" ? 2 : 10; // Set maximum requests based on account type
+
+        // Check if the user has reached the maximum allowed requests
+        const existingRequests = await RequestModel.countDocuments({
+            MemberId: userId,
+            RequestStatus: "Pending",
+        });
+
+        if (existingRequests >= maxRequests) {
+            return res.status(400).json({ message: "Maximum request limit reached." });
+        }
+        const existingRequest = await RequestModel.findOne({
+            MemberId: userId,
+            CallNumber: callNumber,
+            RequestStatus: "Pending",
+        });
+
+        if (existingRequest) {
+            return res.status(400).json({ message: "You have already requested this book." });
+        }
+
         const newRequest = new RequestModel({
             Accession: access,
             MemberId: userId,
@@ -469,6 +473,90 @@ app.post("/cancel-request/:bookId", async (req, res) => {
     }
 });
 
+app.post("/bookmark", async (req, res) => {
+    try {
+        const userId = req.body.userId;
+        const bookId = req.body.bookId;
+        const callNumber = req.body.callNumber;
+        // Check if the book is already bookmarked by the user
+        const existingBookmark = await BookMark.findOne({
+            MemberId: userId,
+            CallNumber: callNumber,
+        });
+
+        if (existingBookmark) {
+            // Book is already bookmarked
+            return res.status(400).json({ message: "Book already bookmarked" });
+        }
+
+        const name = req.body.name;
+        const idNumber = req.body.idNumber;
+
+        const bookmark = new BookMark({
+            MemberId: userId,
+            BookId: bookId,
+            Fullname: name,
+            IDNumber: idNumber,
+            CallNumber: callNumber,
+        });
+        await bookmark.save();
+        res.status(200).json({ message: "Bookmarked Successfully" });
+        console.log("Bookmarked Successfully");
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Error occurred while processing the request");
+    }
+});
+
+app.get("/bookmarks", async (req, res) => {
+    try {
+        const userId = req.session.user._id;
+
+        // Determine the current page from the query parameters
+        const page = parseInt(req.query.page) || 1;
+        const perPage = 3; // Set the number of bookmarks per page
+
+        const boomark = await BookMark.find({
+            MemberId: userId,
+        })
+        .skip((page - 1) * perPage)
+        .limit(perPage);
+
+            // Calculate pagination information
+            const totalBookmarks = await BookMark.countDocuments({ MemberId: userId });
+            const totalPages = Math.ceil(totalBookmarks / perPage);
+            const hasPrev = page > 1;
+            const hasNext = page < totalPages;
+            const prevPage = hasPrev ? page - 1 : null;
+            const nextPage = hasNext ? page + 1 : null;
+
+        for (const book of boomark) {
+            const item = await Book.findOne({ CallNumber: book.CallNumber });
+            book.Image = item.ItemImage;
+            book.Author = item.CreatorAuthor;
+            book.Title = item.Title;
+        }
+        console.log("Bookmark Books:", boomark);
+        res.render("bookmarks", { boomark, hasPrev, hasNext, prevPage, nextPage });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Error occurred while fetching reserved books");
+    }
+});
+
+// Add this route to handle the deletion of bookmarks
+app.post("/deleteBookmark/:bookmarkId", async (req, res) => {
+    try {
+        const bookmarkId = req.params.bookmarkId;
+        // Use Mongoose to find and delete the bookmark
+        await BookMark.findByIdAndDelete(bookmarkId);
+        res.status(200).json({ message: "Bookmark deleted successfully" });
+        console.log("Bookmark deleted successfully");
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Error occurred while deleting the bookmark");
+    }
+});
 
 
 app.listen(3000,()=>{

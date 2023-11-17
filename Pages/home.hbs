@@ -15,7 +15,7 @@
             <div class="logo-search">
                 <img href="/home" src="./LOGO/ld white.png" class="logos">
                 <div class="icon">
-                    <a href="#"><i class="fa-solid fa-bookmark"></i></a>
+                    <a href="/bookmarks"><i class="fa-solid fa-bookmark"></i></a>
                 </div>
             </div>
             <ul>
@@ -93,7 +93,6 @@
             <div class="content">
                 <div class="titile">
                     <h4>NEW BOOKS in COLLECTION</h4>
-                    <a href="#">More</a>
                 </div>
 
                 <div class="all-items">
@@ -120,16 +119,15 @@
             <div class="side-bar">
                 <div class="titile">
                     <h4>Your Recent Reads</h4>
-                    <a href="#">More</a>
                 </div>
 
                 <div class="boxs">
                     {{#each recentUserActivity}}
                         <div class="box">
-                        <img src ="data:image/jpeg;base64,{{ this.BookId.ItemImage }}" alt="{{Title}}">
+                        <img src ="data:image/jpeg;base64,{{ this.image }}" alt="{{this.title}}">
                         <div class="div-text">
-                            <h4>{{Title}}</h4>
-                            <del>UNAVAILABLE</del>
+                            <h4><a href="/item?bookId={{BookId}}">{{this.title}}</a></h4>
+                            <del>{{this.author}}</del>
                         </div>
                         </div>
                     {{/each}}

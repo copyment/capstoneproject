@@ -19,6 +19,11 @@ section{
     justify-content: space-between;
     margin-bottom: 20px;
 }
+section .content{
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+}
 
 /*-------------- HEADER s --------------*/
 header{
@@ -80,7 +85,7 @@ header nav .logo-search .search-box i{
     color: #000000;
 }
 header nav .logo-search .icon a{
-    color: #fff;
+    color: #fccb3f;
     margin-left: 10px;
     font-size: 20px;
 }
@@ -114,35 +119,6 @@ header nav ul li.active::after{
 }
 /*-------------- HEADER E --------------*/
 
-/*-------------- SIDE MENU START --------------*/
-.hero .side-bar{
-    overflow: hidden;
-    width: 25%;
-    background-color: #fff;
-    border-radius: 10px;
-}
-.hero .side-bar h4{
-    padding: 20px;
-    background-color: rgb(46, 139, 87);
-    color: #ffffff;
-    font-size: 18px;
-}
-.hero .side-bar i{
-    margin-right: 10px;
-}
-.hero .side-bar ul li{
-    padding: 17px 20px;
-    color: #ffffff;
-    border-bottom: 1px solid #e9eaf0;
-    cursor: pointer;
-}
-.hero .side-bar ul li:hover{
-    background-color:  rgb(83, 241, 151);
-}
-.hero .side-bar ul li a{
-    color: #000000;
-}
-/*-------------- SIDE MENU END --------------*/
 
 /*-------------- BORROWED COLLECTION START --------------*/
 .sec-2 .side-bar .item{
@@ -152,12 +128,11 @@ header nav ul li.active::after{
     margin-bottom: 18px;
 }
 .content {
-    max-width: 23cm;
+    position: absolute;
+    max-width: 85%;
     width: 100%;
     background-color: #fff;
     border-radius: 10px;
-    margin-top: -345px;
-    margin-left: 320px;
 }
 .titile{
     display: flex;
@@ -201,10 +176,16 @@ header nav ul li.active::after{
 .item-info {
     flex: 1;
 }
+.item-info{
+
+}
 .item-name {
     text-transform: uppercase;
     margin: 0;
     font-weight: bold;
+}
+.item-name a{
+    color: #000000;
 }
 .item-description {
     margin-top: 10px;
@@ -216,23 +197,17 @@ header nav ul li.active::after{
 }
 /*-------------- BORROWED COLLECTION END --------------*/
 
-.view-details-button {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+.bookmarkz {
     margin: 10px;
     padding: 10px 15px;
-    background: rgba(98, 255, 114, 0.984);
-    color: #ffffff;
-    font-size: 15px;
     border: 0;
-    outline: none;
     cursor: pointer;
-    border-radius: 5px;
+    background-color: #ffffff;
 }
-.view-details-button a{
-    color: #000000;
+.bookmarkz a{
+    color: #ffa741;
 }
-
-
+.bookmarkz i{
+    size: 30px;
+}
 

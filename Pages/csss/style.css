@@ -275,15 +275,16 @@ header nav ul li.active::after{
 }
 .sec-3 .side-bar .boxs .box{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #e9eaf0;
 }
 .sec-3 .side-bar .boxs .box img{
     width: 100px;
+    margin-right: 10px;
 }
 .sec-3 .side-bar .boxs .box .div-text h4{
     color: #000000;
+    margin-bottom: 10px;
 }
 .sec-3 .side-bar .boxs .box .div-text .stars{
     margin: 15px 0 18px;
@@ -292,10 +293,9 @@ header nav ul li.active::after{
     color: #fcc83f;
 }
 .sec-3 .side-bar .boxs .box .div-text del{
-    font-weight: bold;
-    text-decoration: line-through;
     font-style: italic;
     color: #999;
+    font-size: 14px;
 }
 .sec-3 .content{
     background-color: transparent;

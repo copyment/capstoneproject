@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{book.Title}}</title>
     <link rel = "stylesheet" href="./csss/item.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -71,8 +73,10 @@
                             <input type="hidden" name="edition" value="{{book.EditionNumber}}">
                             <input type="hidden" name="image" value="{{ book.ItemImage }}">
                             <button type="submit" class="request-btn"><i class="fas fa-wallet"></i> Request Now</button>
-                            <button type ="button" class = "add-cart-btn"><i class="fa-solid fa-book-bookmark"></i>  Bookmark </button>
-                        </form>
+                            <button type ="button" class = "add-cart-btn" onclick="bookmarkItem()">
+                                <i class="fa-solid fa-book-bookmark"></i>  Bookmark 
+                            </button>
+                        </form> 
 
                         <div class="available-copies">
                         <span>Available Copies:{{ availableCopiesCount}}</span> <!-- AVAILABLE COPIES COUNT -->
@@ -84,6 +88,107 @@
         </div>
     </div>
 
+        <section class="sec-2">
+            <div class="content">
+                <div class="titile">
+                    <h4>Book Specification and Description</h4>
+                </div>
+                <!--------- FIRST ROW S--------->
+                <div class="row">
+                    <div class="book-spec">
+                        <p> Book Specification </p>
+                        <div class="book-specs">
+                            <h4>Title: <span class = "book-detail">{{book.Title}}</span></h4>
+                        </div>
+                        <div class="book-specs">
+                            <h4>Author: <span class = "book-detail">{{book.CreatorAuthor}}</span></h4>
+                        </div>
+                        <div class="book-specs">
+                            <h4>Publisher: <span class = "book-detail">{{book.Publisher}}</span></h4>
+                        </div>
+                        <div class="book-specs">
+                            <h4>Language: <span class = "book-detail">{{book.Language}}</span></h4>
+                        </div>
+                        <div class="book-specs">
+                            <h4>Creation Date: <span class = "book-detail">{{book.CreationDate}}</span></h4>
+                        </div>
+                        <div class="book-specs">
+                            <h4>Genre: <span class = "book-detail">{{book.Genre}}</span></h4>
+                        </div>
+                        <div class="book-specs">
+                            <h4>Edition Number: <span class = "book-detail">{{book.EditionNumber}}</span></h4>
+                        </div>
+                        <div class="book-specs">
+                            <h4>Edition Title: <span class = "book-detail">{{book.EditionTitle}}</span></h4>
+                        </div>
+                        <div class="book-specs">
+                            <h4>Edition Year: <span class = "book-detail">{{book.EditionYear}}</span></h4>
+                        </div>
+                        <div class="book-specs">
+                            <h4>Country: <span class = "book-detail">{{book.Country}}</span></h4>
+                        </div>
+                    </div>
+
+                    <div class="book-spec2">
+                        <p> Book Description </p>
+                            <span class = "book-detail">{{book.Description}}</span>
+                    </div>
+                </div>
+            </div>
+        </section>   
+
     <script src="./jss/product.js"></script>
+    <script>
+    // JavaScript function to handle bookmarking
+        function bookmarkItem() {
+            const userId = "{{ user._id }}";
+            const bookId = "{{book._id}}";
+            const name = "{{ user.Fullname }}";
+            const idNumber = "{{ user.IDNumber }}";
+            const callNumber = "{{ book.CallNumber }}";
+
+            // Send AJAX request to bookmark the item
+            fetch("/bookmark", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId,
+                    bookId,
+                    name,
+                    idNumber,
+                    callNumber,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === "Bookmarked Successfully") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Bookmark Successful",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else if(data.message === "Book already bookmarked") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Book Already Marked.",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } 
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Failed!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            });
+        }
+    </script>
 </body>
 </html>

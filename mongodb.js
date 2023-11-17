@@ -200,34 +200,25 @@ const RequestSchema = new mongoose.Schema({
     AssestBy: {type:String,},
 });
 
-// Create a file userActivity.js
 
-const userActivitySchema = new mongoose.Schema({
-  UserId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  BookId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Book',
-    required: true,
-  },
-  Callnumber: {
-    type: String,
-    required: true,
-  },
-  Timestamp: {
-    type: Date,
-    default: Date.now,
-  },
+const BookMarks = new mongoose.Schema({
+    MemberId: {
+        type: String,
+        ref: 'User',
+    },
+    BookId: {
+        type: String,
+        ref: 'Book',
+    },
+    Fullname:{ type:String,},
+    IDNumber:{ type:String,},
+    CallNumber: {type: String,},
 });
 
-
-const UserActivity = mongoose.model('UserActivity', userActivitySchema);
 const RequestModel = mongoose.model("RequestCollection", RequestSchema, "requests");
 const User = mongoose.model("UserCollection", UserSchema, "members");
 const MessageModel = mongoose.model("InquiriesCollection", MessageSchema, "inquiries");
 const Book = mongoose.model("IItemCollection", BookSchema, "items");
+const BookMark = mongoose.model("BookMarkCollection", BookMarks, "bookmarks");
 
-module.exports = {User, MessageModel, Book, RequestModel, UserActivity};
+module.exports = {User, MessageModel, Book, RequestModel, BookMark};
