@@ -16,11 +16,15 @@ section{
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    align-items: center;
 }
 section .content{
     width: 100%;
     background-color: #fff;
     border-radius: 10px;
+}
+section .filter-section{
+    margin-right: -70%;
 }
 
 /*-------------- HEADER s --------------*/
@@ -97,7 +101,7 @@ header nav ul li{
 }
 header nav ul li a{
     color: #fff;
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 header nav ul li::after{
     position: absolute;
@@ -143,10 +147,6 @@ header nav ul li.active::after{
     text-decoration: underline;
 }
 .all-items{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
     padding: 20px;
 }
 .row{
@@ -172,6 +172,7 @@ header nav ul li.active::after{
 }
 .item .div-text h4 a{
     color: #000000;
+    text-transform: uppercase;
 }
 .item .div-text p{
     color: #999;
@@ -197,5 +198,7 @@ header nav ul li.active::after{
     font-style: italic;
     color: #999;
 }
+
+
 /*-------------- THE BOOK COLLECTION END --------------*/
 

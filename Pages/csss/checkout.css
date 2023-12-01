@@ -10,7 +10,6 @@
   text-decoration: none;
 }
 
-
 body{
     background-image: url('/imgs/logg.jpg');
     font-family: Arial, sans-serif;
@@ -248,4 +247,8 @@ header nav ul li.active::after{
 .container2 .order-status {
   margin-top: 10px;
   color: #333;
+}
+
+.your-custom-text-class{
+  color: #fff;
 }

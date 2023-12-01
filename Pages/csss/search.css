@@ -1,9 +1,3 @@
-@font-face {
-    font-family: 'font';
-    src: url(/font/PlayfairDisplay-VariableFont_wght.ttf);
-}
-
-
 *{
     padding: 0;
     margin: 0;
@@ -15,112 +9,29 @@
 body{
     background-image: url('/imgs/logg.jpg');
 }
+
 section{
     width: 85%;
     margin: auto;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-}
-section .side-bar{
-    width: 25%;
-    background-color: #fff;
-    border-radius: 10px;
+    align-items: center;
 }
 section .content{
-    width: 72%;
+    width: 100%;
     background-color: #fff;
     border-radius: 10px;
 }
-.btn{
-    padding: 15px 30px;
-    color: #ffffff;
-    background-color: rgb(46, 139, 87);
-    border: 2px solid rgb(99, 254, 167);
-    border-radius: 5px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-.btn:hover{
-    background-color: transparent;
-    color: rgb(1, 255, 111);
+section .filter-section{
+    margin-right: -70%;
 }
 
-.titile{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e9eaf0;
-}
-.titile h4{
-    color: #000000;
-    text-transform: uppercase;
-    padding: 15px 20px;
-}
-.titile a{
-    margin-right: 20px;
-    color: #ffa741;
-    font-weight: bold;
-}
-.titile a:hover{
-    text-decoration: underline;
-}
 
-.all-items{
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-}
-.all-items .item{
-    width: 22%;
-}
-.item .div-img2 img{
-    width: 100%;
-    height: 350px;
-}
-.item .div-img{
-    border-bottom: 2px solid #e9eaf0;
-}
-.item .div-img img{
-    width: 100%;
-    height: 300px;
-}
-.item .div-text h4{
-    margin: 15px 0 10px;
-}
-.item .div-text h4 a{
-    color: #000000;
-}
-.item .div-text p{
-    font-style: italic;
-    color: #999;
-    font-size: 14px;
-    margin-bottom: 15px;
-}
-.item .div-text .stars i{
-    color: #fcc83f;
-}
-.item .div-text .price{
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-.item .div-text .price span{
-    color: #e80030;
-    cursor: pointer;
-    font-weight: bold;
-}
-.item .div-text .price del{
-    text-decoration: line-through;
-    font-style: italic;
-    color: #999;
-}
-
-/*-------------- HEADER S --------------*/
+/*-------------- HEADER s --------------*/
 header{
     background-color: rgb(46, 139, 87);
     margin-bottom: 30px;
-
 }
 header nav{
     width: 85%;
@@ -210,89 +121,101 @@ header nav ul li.active::after{
 }
 /*-------------- HEADER E --------------*/
 
-/*-------------- SIDE MENU S --------------*/
-.hero .side-bar{
-    overflow: hidden;
-}
-.hero .side-bar h4{
-    padding: 20px;
-    background-color: rgb(46, 139, 87);
-    color: #ffffff;
-    font-size: 18px;
-}
-.hero .side-bar i{
-    margin-right: 10px;
-}
-.hero .side-bar ul li{
-    padding: 17px 20px;
-    color: #000000;
-    border-bottom: 1px solid #e9eaf0;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-.hero .side-bar ul li:hover{
-    background-color: rgb(83, 241, 151);
-}
-.hero .side-bar ul li a{
-    color: #000000;
-}
-.hero .content{
-    background: linear-gradient(#0000007c, #0000007c), url(/imgs/blackbg.jpg);
-    background-size: cover;
-    position: relative;
-}
-.hero .content .div-text{
-    position: absolute;
-    top: 60%;
-    transform: translateY(-50%);
-    left: 100px;
-}
-.hero .content .div-text span{
-    color: rgb(255, 255, 255);
-    font-size: 22px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-.hero .content .div-text h1{
-    color: rgb(255, 255, 255);
-    font-size: 90px;
-    font-family: 'font';
-    margin: 15px 0 ;
-    text-transform: uppercase;
-}
-.hero .content .div-text p{
-    color: #e9eaf0;
-    margin-bottom: 50px;
-}
-/*-------------- SIDE MENU E --------------*/
-
-/*-------------- TOP BOOK SIDE S --------------*/
+/*-------------- THE BOOK COLLECTION START --------------*/
 .sec-2 .side-bar .item{
     padding: 20px;
 }
 .sec-2 .side-bar .item .div-text h4{
     margin-bottom: 18px;
 }
-/*-------------- TOP BOOK SIDE E --------------*/
+.titile{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9eaf0;
+}
+.titile h4{
+    color: #000000;
+    text-transform: uppercase;
+    padding: 15px 20px;
+}
+.titile a{
+    margin-right: 20px;
+    color: #ffa741;
+    font-weight: bold;
+}
+.titile a:hover{
+    text-decoration: underline;
+}
+.all-items{
+    padding: 20px;
+}
+.row{
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 10px;
+}
+.all-items .item{
+    width: 22%;
+    margin: 10px;
+}
+.item .div-img{
+    border-bottom: 2px solid #e9eaf0;
+}
+.item .div-img img{
+    width: 240px;
+    height: 360px;
+    margin-right: 30px;
+}
+.item .div-text h4{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.item .div-text h4 a{
+    color: #000000;
+}
+.item .div-text p{
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 15px;
+    margin-right: -5px;
+}
+.item .div-text .stars i{
+    color: #fcc83f;
+}
+.item .div-text .price{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.item .div-text .price span{
+    color: #e80030;
+    cursor: pointer;
+    font-weight: bold;
+}
+.item .div-text .price del{
+    text-decoration: line-through;
+    font-style: italic;
+    color: #999;
+}
 
-/*-------------- UPCOMING S --------------*/
 .sec-3{
     align-items: flex-start;
 }
 .sec-3 .side-bar .boxs{
     padding: 15px 20px;
 }
-.sec-3 .side-bar .boxs .item{
+.sec-3 .side-bar .boxs .box{
     display: flex;
     align-items: center;
     border-bottom: 2px solid #e9eaf0;
 }
-.sec-3 .side-bar .boxs .item img{
+.sec-3 .side-bar .boxs .box img{
     width: 100px;
     margin-right: 10px;
 }
 .sec-3 .side-bar .boxs .box .div-text h4{
-    color: #30f100;
+    color: #000000;
     margin-bottom: 10px;
 }
 .sec-3 .side-bar .boxs .box .div-text .stars{
@@ -301,13 +224,13 @@ header nav ul li.active::after{
 .sec-3 .side-bar .boxs .box .div-text .stars i{
     color: #fcc83f;
 }
-.sec-3 .side-bar .boxs .item .div-text p{
+.sec-3 .side-bar .boxs .box .div-text del{
     font-style: italic;
     color: #999;
     font-size: 14px;
 }
 .sec-3 .content{
-    background-color: transparent;
+    background-color: white;
 }
 .sec-3 .content .bg-sec{
     height: 250px;
@@ -332,8 +255,13 @@ header nav ul li.active::after{
     margin-bottom: 40px;
 }
 .sec-3 .all-items{
-    background-color: #fff;
-    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.all-items .item{
+    width: 22%;
 }
 
-/*-------------- UPCOMING E --------------*/
+/*-------------- THE BOOK COLLECTION END --------------*/
+

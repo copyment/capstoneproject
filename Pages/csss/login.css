@@ -101,7 +101,7 @@ nav ul li a:hover::after {
     box-shadow: 0 15px 20px #ABB289;
 }
 h2{
-    font-family: 'head';
+    font-family: 'front';
     font-size: 40px;
     font-weight: 600;
     text-align: left;

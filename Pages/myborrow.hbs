@@ -17,12 +17,12 @@
             <div class="logo-search">
                 <img href="/home" src="./LOGO/ld white.png" class="logos">
                 <div class="icon">
-                    <a href="#"><i class="fa-solid fa-bookmark"></i></i></a>
+                    <a href="/bookmarks"><i class="fa-solid fa-bookmark"></i></a>
                 </div>
             </div>
             <ul>
                 <li><a href="/home">Home</a></li>
-                <li><a href="/bcollection">Books</a></li>
+                <li><a href="/bcollection">items</a></li>
             </ul>
         </nav>
     </header>
@@ -59,41 +59,27 @@
     <!--------- SIDE MENU E --------->
 
     <!--------- BORROWED COLLECTION S --------->
-    <section class="sec-2">
+     <section class="sec-2">
         <div class="content">
             <div class="titile">
                 <h4> MY BORROWED </h4>
             </div>
-            
+
             <div class="container">
-
+                {{#each borrowBooks}}
                 <div class="order-item">
-                    <img src="./imgs/subtleart.jpg" alt="Item 1">
+                    <img src="data:image/jpeg;base64,{{ this.Image }}" alt="{{this.Title}}">
                     <div class="item-info">
-                        <h3 class="item-name">The Subtle Art of not giving a F*k</h3>
-                        <p class="item-description"> Author: Mark Manson</p>
-                        <p class="order-status">Status: Borrowed </p>
+                        <h3 class="item-name">{{this.Title}}</h3>
+                        <p class="item-description">Author: {{this.Author}}</p>
+                        <p class="order-status">Status: {{this.CirculationStatus}} </p>
                     </div>
-                </div>
+                    <button type="submit" class="view-details-button">
+                        <a href="/status?borrowid={{this._id}}">View Details</a>
+                    </button>
 
-                <div class="order-item">
-                    <img src="./imgs/fk.jpg" alt="Item 2">
-                    <div class="item-info">
-                        <h3 class="item-name">Everything is F*ck</h3>
-                        <p class="item-description">Author: Mark Manson</p>
-                        <p class="order-status">Status: Borrowed</p>
-                    </div>
                 </div>
-
-                <div class="order-item">
-                    <img src="./imgs/bok6.jpg" alt="Item 3">
-                        <div class="item-info">
-                            <h3 class="item-name">The Gravity</h3>
-                            <p class="item-description">Nille Lewis</p>
-                            <p class="order-status">Status: Ready for Pickup</p>
-                        </div>
-                </div>
-
+                {{/each}}
             </div>
         </div>
     </section>

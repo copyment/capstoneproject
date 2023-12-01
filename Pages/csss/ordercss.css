@@ -95,7 +95,7 @@ header nav ul li{
 }
 header nav ul li a{
     color: #fff;
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 header nav ul li::after{
     position: absolute;
@@ -141,6 +141,7 @@ header nav ul li.active::after{
 }
 .hero .side-bar ul li a{
     color: #000000;
+    text-transform: uppercase;
 }
 /*-------------- SIDE MENU END --------------*/
 

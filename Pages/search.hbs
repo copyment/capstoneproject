@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BOOKS</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="./csss/search.css">
+</head>
+<body>
+    <!--------- PAGE HEADER S --------->
+    <header>
+        <nav>
+            <div class="logo-search">
+                <img href="/home" src="./LOGO/ld white.png" class="logos">
+                <div class="search-box">
+                    <input type="search" placeholder="Search Here...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="icon">
+                    <a href="/bookmarks"><i class="fa-solid fa-bookmark"></i></a>
+                </div>
+            </div>
+            <ul>
+                <li><a href="/home">HOME</a></li>
+                <li class="active"><a href="bcollection.html">BOOKS</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!--------- PAGE HEADER E --------->
+
+    <!--------- COLLECTION S --------->
+        <section class="sec-2">
+            <div class="content">
+                <div class="titile">
+                    <h4>THE BOOK COLLECTIONS</h4>
+                </div>
+
+                <!--------- FIRST ROW S--------->
+                <div class="all-items">
+                    {{#each searchResults}}
+                        <div class="item">
+                            <div class="div-img">
+                                <img src="data:image/jpeg;base64,{{ this.ItemImage }}" alt="{{ this.Title }}">
+                            </div>
+                            <div class="div-text">
+                                <h4><a href="/item?bookId={{this._id}}">{{ this.Title }}</a></h4>
+                                <p>{{ this.CreatorAuthor}}</p>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </section>    
+
+        <section class="sec-3">
+            <!--------- UPCOMING SIDE S--------->
+            <!--------- UPCOMING SIDE E--------->
+
+            <!--------- THE COLLECTION S--------->
+            <div class="content">
+                <div class="titile">
+                    <h4>YOU MAY ALSO LIKE</h4>
+                    <a href="#">More</a>
+                </div>
+            <!--------- RANDOM BOOKS S--------->
+                <div class="all-items" id="">
+                    {{#each randomBooks}}
+                        <div class="item">
+                            <div class="div-img">
+                                <img src="data:image/jpeg;base64,{{this.ItemImage}}" alt="{{this.Title}}">
+                            </div>
+                            <div class="div-text">
+                                <h4><a href="/item?bookId={{this._id}}">{{this.Title}}</a></h4>
+                                <p>{{this.CreatorAuthor}}</p>
+                            </div>
+                        </div>
+                    {{/each}}
+                <!--------- RANDOM BOOKS E--------->
+                </div>
+            </div>
+            <!--------- THE COLLECTION E--------->
+        </section>
+        <!--------- UPCOMING ROW E --------->
+
+
+<script>
+    function handleSortChange(sortOption) {
+        window.location.href = `/bcollection?sortOption=${sortOption}`;
+    }
+</script>
+
+</body>
+</html>

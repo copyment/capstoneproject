@@ -10,6 +10,7 @@
 }
 body{
     background-image: url("/imgs/bg1.jpg");
+    
 }
 html{
     font-family: 'Roboto', sans-serif;
@@ -177,6 +178,7 @@ header nav ul li.active::after{
     font-weight: 700;
     letter-spacing: 1px;
     opacity: 0.9;
+    text-transform: uppercase;
 }
 .product-price{
     font-weight: 700;
@@ -211,6 +213,8 @@ header nav ul li.active::after{
     color: #fff;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-bottom: 22px;
+    bottom: 0;
 }
 .btn-groups button .fas{
     margin-right: 8px;
@@ -233,6 +237,13 @@ header nav ul li.active::after{
 .request:hover{
     background-color: #fffdfd;
     color: #000;
+}
+
+.request-btn-disable{
+    background-color: #c4c3c3;
+    color: #f8f8f8;
+    border: 2px solid #c4c3c3;
+    margin-right: 10px;
 }
 
 /*section {

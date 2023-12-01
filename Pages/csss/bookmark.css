@@ -204,10 +204,15 @@ header nav ul li.active::after{
     cursor: pointer;
     background-color: #ffffff;
 }
-.bookmarkz a{
-    color: #ffa741;
-}
 .bookmarkz i{
-    size: 30px;
+    color: #ffa741;
+    padding: 10px 10px;
+    font-size: 20px;
+}
+
+.bookmarkz i:hover{
+    font-size: 30px;
+    color:#000000
+    
 }
 

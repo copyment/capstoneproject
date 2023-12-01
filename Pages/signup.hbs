@@ -50,37 +50,24 @@
                         <input type="number" placeholder="Enter Contact Number" name="contact" required>
                     </div>
                     <div class="input-box">
-                        <label for="idnumber"> ID Number </label>
-                        <input type="number" placeholder="Enter ID number" name="idnumber" id="id" required>
-                    </div>
-                    <div class="input-box">
                         <label for="profilePicture">Profile Picture</label>
                         <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
-                    </div>
-                    <div class="input-box">
-                        <label for="username"> Username </label>
-                        <input type="text" placeholder="Enter username" name="username" required>
                     </div>
                     <div class="input-box">
                         <label for="rfid"> RFID </label>
                         <input type="text" placeholder="Enter your RFID or None" name="rfid">
                     </div>
                     <div class="input-box">
+                        <label for="username"> Username </label>
+                        <input type="text" placeholder="Enter username" name="username" required>
+                    </div>
+                    <div class="input-box">
                         <label for="password"> Password </label>
                         <input type="password" placeholder="Enter password" name="password" required>
                     </div>
-                    <div class="input-box">
-                        <label for="cpassword"> Confirm Password </label>
-                        <input type="password" placeholder="Enter Password" name="cpassword" required>
-                    </div>
-                    <span class="gender-title">Member Type</span>
-                    <div class="account-type">
-                        <input type="radio" name="account" id="Student" value="Student">
-                        <label for="account">Student</label>
-                        <input type="radio" name="account" id="Teacher" value="Faculty">
-                        <label for="account">Faculty</label>
-                    </div>
-                    <input type="hidden" name="status" value="Active">
+                    <input type="hidden" name="idnumber" id="id" value="N/A">
+                    <input type="hidden" name="account" value="N/A">
+                    <input type="hidden" name="status" value="0">
                 </div>
                     <div class="error-message" id="error-message">
                                 {{#if errorMessage}}

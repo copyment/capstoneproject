@@ -36,7 +36,6 @@ const UserSchema=new mongoose.Schema({
     },
     IDNumber:{
         type:String,
-        required:true
     },
     Username:{
         type:String,
@@ -60,7 +59,7 @@ const UserSchema=new mongoose.Schema({
         type: String,
     },
     Status:{
-        type: String,
+        type: Number,
     },
 });
 
@@ -145,9 +144,6 @@ const BookSchema = new mongoose.Schema({
     Format:{
         type: String,
     },
-    Currency:{
-        type: String,
-    },
     Price:{
         type: String,
     },
@@ -178,6 +174,16 @@ const BookSchema = new mongoose.Schema({
     ItemImage: {
         type: String,
     },
+    MissingFine: {
+        type: String,
+    },
+    DamageFine: {
+        type: String,
+    },
+    LatestCopy:{
+        type: String,
+    },
+
 
 });
 
@@ -198,6 +204,7 @@ const RequestSchema = new mongoose.Schema({
     PickupDue: {type: Date, default: new Date('1970-01-01T00:00:00.000Z')},
     RequestStatus: {type:String,},
     AssestBy: {type:String,},
+    MemberType: {type:String,},
 });
 
 
@@ -215,10 +222,31 @@ const BookMarks = new mongoose.Schema({
     CallNumber: {type: String,},
 });
 
+const CirculationSchema = new mongoose.Schema({
+    Accession: { type:String,},
+    CallNumber: { type:String,},
+    Title: { type:String,},
+    BorrowerName: { type:String,},
+    BorrowerType: { type:String,},
+    BorrowerMemberID: { type:String,},
+    BorrowerMemberRFID: { type:String,},
+    BorrowerID: { type:String,},
+    IssueDate: { type:Date,},
+    DueDate: { type:Date,},
+    ReturnDate: { type:Date,},
+    LoanType: {type:String,},
+    PenaltyAmount: { type:String,},
+    PenaltyStatus: { type:String,},
+    CirculationStatus: { type:String,},
+    IssueBy: { type:String,},
+    HandleBy: {type:String,},
+});
+
+const Circulation = mongoose.model("CirculationCollection", CirculationSchema, "circulations");
 const RequestModel = mongoose.model("RequestCollection", RequestSchema, "requests");
 const User = mongoose.model("UserCollection", UserSchema, "members");
 const MessageModel = mongoose.model("InquiriesCollection", MessageSchema, "inquiries");
 const Book = mongoose.model("IItemCollection", BookSchema, "items");
 const BookMark = mongoose.model("BookMarkCollection", BookMarks, "bookmarks");
 
-module.exports = {User, MessageModel, Book, RequestModel, BookMark};
+module.exports = {User, MessageModel, Book, RequestModel, BookMark, Circulation};

@@ -18,12 +18,12 @@
             <div class="logo-search">
                 <img href="/home" src="./LOGO/ld white.png" class="logos">
                 <div class="icon">
-                    <a href="#"><i class="fa-solid fa-bookmark"></i></a>
+                    <a href="/bookmarks"><i class="fa-solid fa-bookmark"></i></a>
                 </div>
             </div>
             <ul>
-                <li><a href="/home">Home</a></li>
-                <li><a href="/bcollection">Books</a></li>
+                <li><a href="/home">HOME</a></li>
+                <li><a href="/bcollection">ITEMS</a></li>
             </ul>
         </nav>
     </header>
@@ -40,7 +40,7 @@
                 </li>
                 <li>
                     <i class="fa-solid"></i>
-                    <a href="myborrow.html">My Borrowed</a>
+                    <a href="/myborrow">My Borrowed</a>
                 </li>
                 <li>
                     <i class="fa-solid"></i>
@@ -65,49 +65,42 @@
              <div class="titile">
                 <h4> MY PROFILE </h4>
             </div>
-                <div class="user-info">
-                    <div class="info-box">
-                        <h4>Fullname</h4>
-                        <p>{{ user.Fullname }}</p>
-                    </div>
+            <div class="profile-container">
+                <div class="profile-picture">
+                    <img src="data:image/jpeg;base64,{{ user.ProfilePicture }}" alt="Profile Picture">
                 </div>
-                <div class="user-info1">
-                    <div class="info-box1">
-                    <img src="data:image/jpeg;base64,{{ user.ProfilePicture }}" id="profile-pic" alt="Profile Picture">
-                    <label for="input-file"> UPDATE PHOTO </label>
-                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file"> 
-                    </div>
-                </div> 
-                <div class="user-info">
-                    <div class="info-box">
-                        <h4>Address</h4>
-                        <p>{{ user.Address }}<p>
-                    </div>
-                    <div class="info-box">
-                        <h4>Contact Number</h4>
-                        <p>{{ user.ContactNumber }}</p>
-                    </div>
-                    <div class="info-box">
-                        <h4>ID Number</h4>
-                        <p>{{ user.IDNumber }}</p>
-                    </div>
-                    <div class="info-box">
-                        <h4>Member Type</h4>
-                        <p>{{ user.AccountType }}</p>
-                    </div>
-                    <div class="info-box">
-                        <h4>Date Joined</h4>
-                        <p>{{ formattedRegistrationDate }}</p>
-                    </div>
-                    <div class="info-box">
-                        <h4>Username</h4>
-                        <p>{{ user.Username }}</p>
-                    </div>
-                    <div class="info-box">
-                        <h4>Password</h4>
-                        <p>{{ user.Password }}</p>
-                    </div>
+
+                <div class="profile-info">
+                    <h2>{{ user.Fullname }}</h2>
+                    <p>{{ user.Address }}</p>
                 </div>
+                    <div class="profile-details">
+                        <div class="detail-box">
+                            <h4>Contact Number</h4>
+                            <p>{{ user.ContactNumber }}</p>
+                        </div>
+                        <div class="detail-box">
+                            <h4>ID Number</h4>
+                            <p>{{ user.IDNumber }}</p>
+                        </div>
+                        <div class="detail-box">
+                            <h4>Member Type</h4>
+                            <p>{{ user.AccountType }}</p>
+                        </div>
+                        <div class="detail-box">
+                            <h4>Date Joined</h4>
+                            <p>{{ formattedRegistrationDate }}</p>
+                        </div>
+                        <div class="detail-box">
+                            <h4>Username</h4>
+                            <p>{{ user.Username }}</p>
+                        </div>
+                        <div class="detail-box">
+                            <h4>Password</h4>
+                            <p>{{ user.Password }}</p>
+                        </div>
+                    </div>
+            </div>
         </div>
     </section>
     <!--------- USER INFORMATION E --------->

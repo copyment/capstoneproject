@@ -19,8 +19,8 @@
                 </div>
             </div>
             <ul>
-                <li class="active"><a href="/home">Home</a></li>
-                <li><a href="/bcollection">Books</a></li>
+                <li class="active"><a href="/home">HOME</a></li>
+                <li><a href="/bcollection">ITEMS</a></li>
 
             </ul>
         </nav>
@@ -39,7 +39,7 @@
                     </li>
                     <li>
                         <i class="fa-solid"></i>
-                        <a href="myborrow.html">My Borrowed</a>
+                        <a href="/myborrow">My Borrowed</a>
                     </li>
                     <li>
                         <i class="fa-solid"></i>
@@ -58,10 +58,9 @@
 
             <div class="content">
                 <div class="div-text">
-                    <span>Top Books</span>
-                    <h1>COLLECTION OF THE WEEK</h1>
-                    <p> Browse top books from our collection.</p>
-                    <a href="/toppages" class="btn">BROWSE</a>
+                    <span>WELCOME TO</span>
+                    <h1>THE LIBRARY</h1>
+                    <p> Discover and Borrow from our extensive collection of books and more..</p>
                 </div>
             </div>
         </section>
@@ -120,15 +119,14 @@
                 <div class="titile">
                     <h4>Your Recent Reads</h4>
                 </div>
-
                 <div class="boxs">
                     {{#each recentUserActivity}}
-                        <div class="box">
-                        <img src ="data:image/jpeg;base64,{{ this.image }}" alt="{{this.title}}">
-                        <div class="div-text">
-                            <h4><a href="/item?bookId={{BookId}}">{{this.title}}</a></h4>
-                            <del>{{this.author}}</del>
-                        </div>
+                        <div class="item">
+                            <img src="data:image/jpeg;base64,{{ this.book.ItemImage }}" alt="{{this.book.Title}}">
+                            <div class="div-text">
+                                <h4><a href="/item?bookId={{this.book._id}}">{{this.book.Title}}</a></h4>
+                                <p>{{this.book.CreatorAuthor}}</p>
+                            </div>
                         </div>
                     {{/each}}
                 </div>
