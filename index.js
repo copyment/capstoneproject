@@ -9,6 +9,8 @@ const multer = require("multer");
 const sharp = require('sharp');
 const {format} = require("date-fns");
 const hbs = require('hbs');
+const fs = require('fs');
+
 
 hbs.registerHelper('eq', function (a, b) {
     return a === b;
@@ -233,7 +235,7 @@ app.get("/myreserved", async (req, res) => {
         const userId = req.session.user._id;
         const reservedBooks = await RequestModel.find({
             MemberId: userId,
-            $or: [{ RequestStatus: "Pending" }, { RequestStatus: "pending" }]
+            $or: [{ RequestStatus: "Pending" }, { RequestStatus: "Approved" }]
         });
         for (const book of reservedBooks) {
             const item = await Book.findOne({ CallNumber: book.CallNumber });
@@ -279,14 +281,10 @@ try {
     const email = req.body.email;
     const rfid = req.body.rfid;
     const usern = req.body.username;
-    const existingID = await User.findOne({ IDNumber: idNumber });
     const existingContact = await User.findOne({ ContactNumber: contact });
     const existingEmail = await User.findOne({ Email: email });
     const existingRfid = await User.findOne({ Rfid: rfid });
     const existingUsern = await User.findOne({ Username: usern });
-    if (existingID) {
-        return res.render("signup", {errorMessage: "ID number already exist, Please try another!"});
-    }
     if (existingContact) {
         return res.render("signup", {errorMessage: "Contact Number already exist. Please try another!"});
     }
@@ -313,6 +311,11 @@ try {
     AccountType:req.body.account,
     Status: req.body.status,
 };
+const defaultPicturePath = "./Pages/imgs/picture.jpg";
+
+    // Initialize ProfilePicture with the default value
+    data.ProfilePicture = await getDefaultProfilePictureBase64(defaultPicturePath);
+
 //const tzOffset = new Date().getTimezoneOffset() * 60000; // Get the current system timezone offset
 const currentDate = new Date(); 
 const formattedDate = currentDate.toISOString();
@@ -341,6 +344,17 @@ res.render("login");
     res.send("error occured while saving the message");
 }
 });
+
+async function getDefaultProfilePictureBase64(filePath) {
+    try {
+      const defaultPictureBuffer = fs.readFileSync(filePath);
+      const defaultPictureBase64 = defaultPictureBuffer.toString('base64');
+      return defaultPictureBase64;
+    } catch (error) {
+      console.error("Error reading default profile picture:", error);
+      return ''; // Return an empty string or handle the error accordingly
+    }
+  }
 //SIGN UP E
 
 //MESSAGE S
@@ -400,6 +414,7 @@ app.post("/request", async (req, res) => {
         const access = req.body.access;
         const assest = req.body.assest;
         const memberType = req.body.memberType;
+        const sent = req.body.sent;
         const accountType = req.session.user.AccountType; // Assuming user information is stored in the session
         const maxRequests = accountType === "Student" ? 2 : 10; // Set maximum requests based on account type
         // Check if the user has reached the maximum allowed requests
@@ -429,6 +444,7 @@ app.post("/request", async (req, res) => {
             RequestStatus: requestStatus,
             AssestBy: assest,
             MemberType: memberType,
+            Sent: sent,
         });
         const currentDate = new Date(); 
         const formattedDate = currentDate.toISOString();

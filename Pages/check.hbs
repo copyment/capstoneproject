@@ -68,6 +68,7 @@
                 <input type="hidden" name="dateRequested" value="{{ Date.now }}">
                 <input type="hidden" name="memberType" value="{{ member }}">
                 <input type="hidden" name="requestStatus" value="pending">
+                <input type="hidden" name="sent" value="0">
                 <button type="button" class="request-btn" id="proceedToCheckout">proceed to request</button>
         </form>
         <div class="container2">
@@ -117,7 +118,8 @@
             dateRequested: "{{ Date.now }}",
             requestStatus: "Pending",
             assest: "N/A",
-            memberType: "{{ member }}"
+            memberType: "{{ member }}",
+            sent: "0"
           })
         })
         .then(response => response.json())
