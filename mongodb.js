@@ -1,8 +1,8 @@
 const mongoose=require("mongoose")
 mongoose.set("strictQuery", false);
 
-//mongoose.connect("mongodb://0.0.0.0:27017/LMS")
-mongoose.connect("mongodb+srv://virusdetected848:helloworld123@cluster0.mootble.mongodb.net/LMS?retryWrites=true&w=majority")
+mongoose.connect("mongodb://0.0.0.0:27017/LMS")
+//mongoose.connect("mongodb+srv://virusdetected848:helloworld123@cluster0.mootble.mongodb.net/LMS?retryWrites=true&w=majority")
 .then(()=>{
     console.log("mongodb connecteds");
 })
@@ -50,7 +50,6 @@ const UserSchema=new mongoose.Schema({
     },
     AccountType:{
         type:String,
-        required:true
     },
     DateRegistered: {
         type: Date
@@ -196,11 +195,9 @@ const RequestSchema = new mongoose.Schema({
     Fullname:{ type:String,},
     IDNumber:{ type:String,},
     Title: { type:String,},
-    EditionNumber: {type: String,},
     CallNumber: {type: String,},
     DateRequested: {type:Date,},
     DateAssest: {type: Date, default: new Date('1970-01-01T00:00:00.000Z')},
-    PickupDate: {type: Date, default: new Date('1970-01-01T00:00:00.000Z')},
     PickupDue: {type: Date, default: new Date('1970-01-01T00:00:00.000Z')},
     RequestStatus: {type:String,},
     AssestBy: {type:String,},
@@ -243,6 +240,29 @@ const CirculationSchema = new mongoose.Schema({
     HandleBy: {type:String,},
 });
 
+const PenaltiesSchema = new mongoose.Schema({
+    TransacID: { type:String,},
+    MemberID: { type:String,},
+    Accession: { type:String,},
+    Callnumber: { type:String,},
+    Title: { type:String,},
+    Fullname: { type:String,},
+    IDnumber: { type:String,},
+    MemberType: { type:String,},
+    BorrowerMemberRFID: { type:String,},
+    LoanType: { type:String,},
+    PaymentAmount: { type:String,},
+    PenaltyAmount: { type:String,},
+    PenaltyDesc: { type:String,},
+    PenaltyIssue: { type:Date,},
+    PenaltyStatus: { type:String,},
+    PenaltyResolved: { type:Date,},
+    PEnaltyIssueBy: { type:String,},
+    PaymentType: { type:String,},
+    PenaltyResolvedBy: { type:String,},
+})
+
+const Penalties = mongoose.model("PenaltyCollection", PenaltiesSchema, "penalties");
 const Circulation = mongoose.model("CirculationCollection", CirculationSchema, "circulations");
 const RequestModel = mongoose.model("RequestCollection", RequestSchema, "requests");
 const User = mongoose.model("UserCollection", UserSchema, "members");
@@ -250,4 +270,4 @@ const MessageModel = mongoose.model("InquiriesCollection", MessageSchema, "inqui
 const Book = mongoose.model("IItemCollection", BookSchema, "items");
 const BookMark = mongoose.model("BookMarkCollection", BookMarks, "bookmarks");
 
-module.exports = {User, MessageModel, Book, RequestModel, BookMark, Circulation};
+module.exports = {User, MessageModel, Book, RequestModel, BookMark, Circulation, Penalties};

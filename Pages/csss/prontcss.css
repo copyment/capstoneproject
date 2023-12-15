@@ -21,6 +21,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+body {
+    background-color: transparent;
+}
 
 /*-------------- WELCOME PAGE START --------------*/
 .container {
@@ -37,7 +40,7 @@ nav{
     width: 100%;
     align-items: center;
     flex-wrap: wrap;
-    padding: 5px 0;
+    padding: 2% 0;
 }
 .logo {
     width: 120;
@@ -92,26 +95,26 @@ nav ul li a:hover::after {
 }
 .text-box h1 {
     font-family: 'head';
-    font-size: 130px;
-    line-height: 100px;
-    margin-left: -10px;
-    margin-bottom: 30px;
+    font-size: 10vw; /* Adjust the value as needed */
+    line-height: 8vw; /* Adjust the value as needed */
     color: rgba(98, 255, 114, 0.984);
 }
 .text-box h2{
     font-family: 'head';
-    font-size: 120px;
-    line-height: 90px;
+    font-size: 8vw; /* Adjust the value as needed */
+    line-height: 6vw; /* Adjust the value as needed */
     margin-left: -10px;
     margin-top: 15px;
     color: rgba(98, 255, 114, 0.984);
 }
 .text-box h3{
-    font-size: 20px;
+    font-size: 1.5vw; /* Adjust the value as needed */
     font-weight: 500;
     font-family: 'font';
     color: rgb(255, 255, 255);
 }
+
+
 /*-------------- WELCOME PAGE END --------------*/
 
 /*-------------- ABOUT PAGE START --------------*/
@@ -123,11 +126,12 @@ nav ul li a:hover::after {
     background-size: cover;
     padding:  0 8%;
     bottom: 5%;
+    position: relative;
 }
 .header h1 {
     font-family: 'head';
-    font-size: 130px;
-    line-height: 200px;
+    font-size: 10vw; /* Adjust the value as needed */
+    line-height: 8vw;
     margin-left: 80px;
     color: rgba(98, 255, 114, 0.984);
     padding-top: 170px;
@@ -156,7 +160,7 @@ nav ul li a:hover::after {
     line-height: 120px;
     margin-left: 60%;
     color: rgba(98, 255, 114, 0.984);
-    margin-top: -35%;
+    margin-top: 10%;
 }
 .header1 h3{
     font-size: 20px;
@@ -225,4 +229,57 @@ form button{
 
 html{
     scroll-behavior: smooth;
+}
+
+/* Add these media queries to your existing CSS file */
+
+/* For smaller screens */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0 5%;
+    }
+
+    .text-box {
+        bottom: 10%;
+        text-align: center;
+    }
+
+    .logo {
+        width: 80px;
+        height: auto;
+        max-width: 100%;
+    }
+
+    nav ul {
+        text-align: center;
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .header h1,
+    .header1 h1 {
+        font-size: 80px;
+        line-height: 100px;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    /* Add additional responsive styles here */
+}
+
+/* For tablets */
+@media screen and (max-width: 1024px) {
+    /* Add tablet-specific responsive styles here */
+}
+
+/* For larger screens */
+@media screen and (min-width: 1200px) {
+    /* Add larger screen-specific responsive styles here */
 }

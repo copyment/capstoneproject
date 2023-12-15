@@ -8,8 +8,9 @@
 }
 body{
     background-image: url('/imgs/logg.jpg');
-    margin-bottom: 10cm;
+    margin: 0;
     font-family: 'Arial', sans-serif;
+    padding: 0;
 }
 section{
     width: 85%;
@@ -192,7 +193,8 @@ header nav ul li.active::after{
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
-
+    display: flex; /* Use flexbox for better alignment */
+    flex-direction: column; /* Stack children vertically */
 }
 
 .profile-picture {
@@ -201,6 +203,7 @@ header nav ul li.active::after{
     border-radius: 50%;
     margin: 0 auto;
     overflow: hidden;
+    
 }
 
 .profile-picture img {
@@ -231,13 +234,38 @@ header nav ul li.active::after{
     justify-content: space-around;
 }
 
-.detail-box {
+.detail-box2 {
     width: 48%;
     margin-bottom: 20px;
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    
+
+}
+.detail-box2 h4 {
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    align-self: center;
+}
+.detail-box2 p {
+    color: #000000;
+    margin: 0;
+
+}
+
+.detail-box {
+    width: 48%;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
 .detail-box h4 {
@@ -246,12 +274,56 @@ header nav ul li.active::after{
     text-transform: uppercase;
 }
 
-.detail-box p {
-    color: #666;
-    margin: 0;
-
-}
+.detail-box input{
+    width: 100%;
+    border:1px solid #969696;
+    padding:10px 15px;
+    font-size: 16px;
+    text-transform: none;
+    background-color: #f9f9f9;
+    color: #000000;
+  }
+  
+  .detail-box input:focus{
+    border:1px solid #000;
+  }
 /*-------------- USER INFORMATION END --------------*/
 
+.edit-profile-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    align-self: flex-end; 
+}
 
+/* Adjust button styles as needed */
+.edit-profile-btn:hover {
+    background-color: #2980b9;
+}
 
+/* Add styles for the edit buttons */
+.detail-box input[disabled] {
+    background-color: #f4f4f4; /* Show disabled fields with a different background color */
+}
+
+#file{
+    display: none;
+}
+#uploadbtn{
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    padding: 6px 6px;
+    border-radius: 50%;
+    cursor:pointer;
+    color: #FFF;
+    transform: translateX(350%);
+    margin-top: -30px;
+    background-color: rgba(0, 0, 0, 0.801);
+    box-shadow: 2px 4px 4px rgb(0, 0, 0, 0.644);
+    display: none;
+}

@@ -48,7 +48,7 @@
                 </li>
                 <li>
                     <i class="fa-solid"></i>
-                        <a href="/mytransaction">My Transaction</a>
+                        <a href="/mytransaction">My Penalties</a>
                 </li>
                 <li>
                     <i class="fa-solid"></i>
@@ -66,44 +66,110 @@
                 <h4> MY PROFILE </h4>
             </div>
             <div class="profile-container">
-                <div class="profile-picture">
-                    <img src="data:image/jpeg;base64,{{ user.ProfilePicture }}" alt="Profile Picture">
-                </div>
+                <form action="/update-profile" method="POST" enctype="multipart/form-data">
+                    <div class="profile-picture">
+                        <img src="data:image/jpeg;base64,{{ user.ProfilePicture }}" alt="Profile Picture" id="currentProfilePicture">
+                        <input type="file" id="file" name="profilePicture" accept="image/*">
+                        <label for="file" id="uploadbtn"><i class="fa-solid fa-camera"></i></label>
+                    </div>
+
 
                 <div class="profile-info">
                     <h2>{{ user.Fullname }}</h2>
-                    <p>{{ user.Address }}</p>
+                    <p>{{user.AccountType}} ({{ user.IDNumber }})</p> <h3></h3>
                 </div>
+
                     <div class="profile-details">
+                        <div class="detail-box2">
+                            <h4>Birthday</h4>
+                            <p>{{ formattedBirthday }}</p>
+                        </div>
+                        <div class="detail-box2">
+                            <h4>RFID</h4>
+                            <p>{{ user.Rfid }}</p>
+                        </div>
                         <div class="detail-box">
                             <h4>Contact Number</h4>
-                            <p>{{ user.ContactNumber }}</p>
+                            <input type="number" id="contact" name="contact" value="{{ user.ContactNumber }}" disabled>
                         </div>
                         <div class="detail-box">
-                            <h4>ID Number</h4>
-                            <p>{{ user.IDNumber }}</p>
-                        </div>
-                        <div class="detail-box">
-                            <h4>Member Type</h4>
-                            <p>{{ user.AccountType }}</p>
-                        </div>
-                        <div class="detail-box">
-                            <h4>Date Joined</h4>
-                            <p>{{ formattedRegistrationDate }}</p>
+                            <h4>Email</h4>
+                            <input type="text" id="email" name="email" value="{{ user.Email }}" disabled>
                         </div>
                         <div class="detail-box">
                             <h4>Username</h4>
-                            <p>{{ user.Username }}</p>
+                            <input type="text" id="username" name="username" value="{{ user.Username }}" disabled>
                         </div>
                         <div class="detail-box">
                             <h4>Password</h4>
-                            <p>{{ user.Password }}</p>
+                            <input type="password" id="password" name="password" value="{{ user.Password }}" disabled>
+                        </div>
+                        <div class="detail-box">
+                            <h4>Address</h4>
+                            <input type="text" id="address" name="address" value="{{ user.Address }}" disabled>
                         </div>
                     </div>
+                    <button id="saveButton" type="submit" style="display: none;">Save Changes</button>
+                    <button id="editButton" type="button">Edit Profile</button>
+                </form>
             </div>
         </div>
     </section>
     <!--------- USER INFORMATION E --------->
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const editButton = document.getElementById('editButton');
+        const saveButton = document.getElementById('saveButton');
+        const inputFields = document.querySelectorAll('.detail-box input:not([id="account"])');
+        const uploadButton = document.getElementById('uploadbtn');
+        const profilePicture = document.getElementById('currentProfilePicture');
+        const fileInput = document.getElementById('file');
+
+        editButton.addEventListener('click', () => {
+            inputFields.forEach(input => {
+                input.disabled = !input.disabled;
+            });
+            saveButton.style.display = saveButton.style.display === 'none' ? 'block' : 'none';
+            uploadButton.style.display = 'block';
+        });
+        // Listen for changes in the file input
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Update the 'src' attribute of the image with the selected file
+                    profilePicture.src = e.target.result;
+                };
+                // Read the file as a data URL
+                reader.readAsDataURL(file);
+            }
+        });
+        // Function to handle form submission for profile update
+        document.getElementById('profileForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(document.querySelector('form'));
+            const response = await fetch('/update-profile', {
+                method: 'POST',
+                body: formData
+            });
+              if (response.ok) {
+                        // Success: Redirect to profile page
+                        window.location.href = '/profile';
+                    } else {
+                        // Handle errors based on status code or other conditions
+                        // For example, log the error or display an error message
+                        console.error('Error:', response.status);
+                        // Display an error message to the user or handle the error accordingly
+                    }
+        });
+    });
+</script>
+
+<!-- ... (remaining HTML code) -->
+
+    
 </body>
 </html>

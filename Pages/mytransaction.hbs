@@ -49,7 +49,7 @@
                 </li>
                 <li style="background-color: rgb(83, 241, 151);">
                     <i class="fa-solid"></i>
-                        <a href="mytransaction.html">My Transaction</a>
+                        <a href="/mytransaction">My Penalties</a>
                 </li>
                 <li>
                     <i class="fa-solid"></i>
@@ -64,17 +64,17 @@
     <section class="sec-2">
         <div class="content">
             <div class="titile">
-                <h4> MY Transaction </h4>
+                <h4> MY Penalties </h4>
             </div>
 
             <div class="container">
-                {{#each reservedBooks}}
+                {{#each penalty}}
                 <div class="order-item">
                     <img src="data:image/jpeg;base64,{{ this.Image }}" alt="{{this.Title}}">
                     <div class="item-info">
                         <h3 class="item-name">{{this.Title}}</h3>
                         <p class="item-description">Author: {{this.Author}}</p>
-                        <p class="order-status">Status: {{this.RequestStatus}} </p>
+                        <p class="order-status">Status: {{this.PenaltyStatus}} </p>
                     </div>
                     <button type="submit" class="view-details-button">
                         <a href="/status?borrowid={{this._id}}">View Details</a>

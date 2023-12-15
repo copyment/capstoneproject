@@ -50,14 +50,6 @@
                         <input type="number" placeholder="Enter Contact Number" name="contact" required>
                     </div>
                     <div class="input-box">
-                        <label for="profilePicture">Profile Picture</label>
-                        <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
-                    </div>
-                    <div class="input-box">
-                        <label for="rfid"> RFID </label>
-                        <input type="text" placeholder="Enter your RFID or None" name="rfid">
-                    </div>
-                    <div class="input-box">
                         <label for="username"> Username </label>
                         <input type="text" placeholder="Enter username" name="username" required>
                     </div>
@@ -65,20 +57,22 @@
                         <label for="password"> Password </label>
                         <input type="password" placeholder="Enter password" name="password" required>
                     </div>
-                    <input type="hidden" name="idnumber" id="id" value="N/A">
-                    <input type="hidden" name="account" value="N/A">
-                    <input type="hidden" name="status" value="0">
+                    <div class="input-box">
+                        <label for="profilePicture">Profile Picture</label>
+                        <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
+                    </div>
+                    <input type="hidden" name="rfid" value="N/A">
                 </div>
                     <div class="error-message" id="error-message">
                                 {{#if errorMessage}}
                                     {{errorMessage}}
                                 {{/if}}
                     </div>
-                <div class="alert">
+                <!--<div class="alert">
                     <p>By signing up and creating an account, you agree to the following <a href="#">Terms and Conditions</a>
                     :You must provide accurate and current information during 
                     the registration process. .</p>
-                </div>
+                </div>-->
                 <div class="button-container">
                     <button type="submit">Register</button>
                 </div>

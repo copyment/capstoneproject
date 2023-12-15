@@ -35,24 +35,24 @@
                     <h3 class="title">billing address</h3>
                     <div class="inputBox">
                         <span>full name :</span>
-                        <input type="text" placeholder="ENTER FULLNAME" name="fullname" value="{{name}}">
+                        <input type="text" placeholder="ENTER FULLNAME" name="fullname" value="{{name}}" disabled>
                     </div>
                     <div class="inputBox">
                         <span>email :</span>
-                        <input type="email" placeholder="example@example.com" value="{{email}}">
+                        <input type="email" placeholder="example@example.com" value="{{email}}"disabled>
                     </div>
                     <div class="inputBox">
                         <span>address :</span>
-                        <input type="text" placeholder="room - street - locality" value="{{address}}">
+                        <input type="text" placeholder="room - street - locality" value="{{address}}"disabled>
                     </div>
                     <div class="flex">
                         <div class="inputBox">
                             <span>ID Number :</span>
-                            <input type="text" placeholder="2099999" value="{{idNumber}}">
+                            <input type="text" placeholder="2099999" value="{{idNumber}}"disabled>
                         </div>
                         <div class="inputBox">
                             <span>Mobile Number :</span>
-                            <input type="text" placeholder="123 456" value="{{contact}}">
+                            <input type="text" placeholder="123 456" value="{{contact}}"disabled>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,6 @@
                 <input type="hidden" name="idNumber" value="{{ idNumber }}">
                 <input type="hidden" name="title" value="{{ title }}">
                 <input type="hidden" name="author" value="{{ author }}">
-                <input type="hidden" name="edition" value="{{ edition }}">
                 <input type="hidden" name="access" value="N/A">
                 <input type="hidden" name="callNumber" value="{{ callNumber }}">
                 <input type="hidden" name="dateRequested" value="{{ Date.now }}">
@@ -83,6 +82,7 @@
             </div>
         </div>
     </div>    
+    
 <script>
   document.getElementById('proceedToCheckout').addEventListener('click', function() {
     Swal.fire({
@@ -98,10 +98,6 @@
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        // If the user clicks "Yes, proceed", you can save the data and show a success message.
-        // You can make an AJAX request to your server to save the data.
-
-        // Example AJAX request using Fetch API:
         fetch('/request', {
           method: 'POST',
           headers: {
@@ -114,7 +110,6 @@
             idNumber: "{{ idNumber }}",
             title: "{{ title }}",
             callNumber: "{{ callNumber }}",
-            edition: "{{ edition }}",
             dateRequested: "{{ Date.now }}",
             requestStatus: "Pending",
             assest: "N/A",
@@ -127,7 +122,6 @@
           if (data.message === "Request saved successfully") {
             Swal.fire('Success!', 'Your request has been processed.', 'success')
                 .then(() => {
-                    // Redirect to a success page or update the UI
                     window.location.href = '/myreserved';
             }); 
           } else if(data.message === "Maximum request limit reached.") {
@@ -144,7 +138,14 @@
                       icon: "error"
                     });
             } 
-        })//"Maximum request limit reached."
+            else if(data.message === "User is not eligible to make a request.") {
+                      Swal.fire({
+                      title: "Failed!",
+                      text: "User eligible for one request only.",
+                      icon: "error"
+                    });
+            } 
+        })
         .catch(error => {
           console.error("Error:", error);
           Swal.fire({

@@ -17,10 +17,10 @@
             <nav>
                 <div class="logo-search">
                     <img href="/home" src="./LOGO/ld white.png" class="logos">
-                    <div class="search-box">
+                   <!-- <div class="search-box">
                         <input type="search" placeholder="Search Here...">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
+                    </div>-->
                     <div class="icon">
                     <a href="/bookmarks"><i class="fa-solid fa-bookmark"></i></a>
                     </div>
@@ -70,7 +70,6 @@
                                     {{#if availableCopiesCount}}
                                         <button type="submit" class="request-btn"><i class="fas fa-wallet"></i> Request Now</button>
                                     {{else}}
-                                        <!-- If availableCopiesCount is 0, disable the button and change its label -->
                                         <button type="button" class="request-btn-disable" disabled><i class="fas fa-wallet"></i> Out of Copies</button>
                                     {{/if}}
                             
@@ -90,12 +89,12 @@
         <section class="sec-2">
             <div class="content">
                 <div class="titile">
-                    <h4>Book Specification and Description</h4>
+                    <h4>Item Specification and Description</h4>
                 </div>
                 <!--------- FIRST ROW S--------->
                 <div class="row">
                     <div class="book-spec">
-                        <p> Book Specification </p>
+                        <p> Item Specification </p>
                         <div class="book-specs">
                             <h4>Title: <span class = "book-detail">{{book.Title}}</span></h4>
                         </div>
@@ -128,7 +127,7 @@
                         </div>
                     </div>
                     <div class="book-spec2">
-                        <p> Book Description </p>
+                        <p> Item Description </p>
                             <span class = "book-detail">{{book.Description}}</span>
                     </div>
                 </div>
@@ -136,14 +135,13 @@
         </section>   
     <script src="./jss/product.js"></script>
     <script>
-    // JavaScript function to handle bookmarking
         function bookmarkItem() {
             const userId = "{{ user._id }}";
             const bookId = "{{book._id}}";
             const name = "{{ user.Fullname }}";
             const idNumber = "{{ user.IDNumber }}";
             const callNumber = "{{ book.CallNumber }}";
-            // Send AJAX request to bookmark the item
+
             fetch("/bookmark", {
                 method: "POST",
                 headers: {

@@ -35,7 +35,7 @@
         <div class="container1">
             <div class="row">
                 <div class="col">
-                    <h3 class="title">billing address</h3>
+                    <h3 class="title">requester information</h3>
                     <div class="inputBox">
                         <span>full name :</span>
                         <div class="info-box">
@@ -73,8 +73,8 @@
         </div>
 
         <div class="container2">
-            <h3 class="title">Request details</h3>
-            <p class="item-id">Request Status: {{ requeststatus }}</p>
+            <h3 class="title">circulation details</h3>
+            <p class="item-id">circulation Status: {{ requeststatus }}</p>
             <div class="order-item">
                 <img src ="data:image/jpeg;base64,{{ book.ItemImage }}" alt="{{Title}}">
             </div>
@@ -82,6 +82,15 @@
                 <h3 class="item-name">{{ title }}</h3>
                 <p class="item-description">Edition: {{ book.EditionNumber }}</p>
                 <p class="item-description">Author: {{ book.CreatorAuthor }}</p>
+                {{#if (eq requeststatus "Approved")}}
+                <p class="item-description">Pickup Until: {{ formatDate pickupdue }}</p>
+                {{/if}}
+                {{#if (eq requeststatus "Returned")}}
+                <p class="item-description">Returned Date: {{ formatDate returndate }}</p>
+                {{/if}}
+                {{#if (eq requeststatus "Borrowed")}}
+                <p class="item-description">Due Date: {{ formatDate duedate }}</p>
+                {{/if}}
             </div>
             <form id="cancel-request-form" action="/cancel-request/{{book.id}}" method="POST">
                 {{#if (eq requeststatus "Pending")}}
@@ -97,7 +106,7 @@
     document.addEventListener("DOMContentLoaded", function () {
     const cancelForm = document.getElementById("cancel-request-form");
     cancelForm.addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent the default form submission
+        e.preventDefault();
 
         Swal.fire({
             title: 'Are you sure?',
@@ -109,7 +118,6 @@
             confirmButtonText: 'Yes, Cancel it!',
         }).then((result) => {
             if (result.isConfirmed) {
-                // Submit the form via AJAX to handle the cancel request
                 fetch(cancelForm.action, {
                     method: 'POST'
                 })
@@ -131,6 +139,7 @@
 });
 
 </script>
+
 
 
 </body>

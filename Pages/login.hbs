@@ -48,12 +48,11 @@
     </div>
     
      <script>
-    // Function to show the modal based on the error message received from the server
     function showErrorModal(errorMessage) {
         if (errorMessage === "Account Banned") {
             Swal.fire({
                 icon: "error",
-                title: "Account Banned",
+                title: "Account Blocked or Deleted",
                 text: "If you think this is wrong, Contact Admin!",
             });
         } else if (errorMessage === "Unknown Account") {
@@ -65,18 +64,12 @@
         }
     }
 
-    // Function to be called onload to check conditions and show modals
     function checkAndShowModals() {
-        // Assuming you have a variable like {{ errorMessage }} from your backend
-        // that indicates the error condition
         var errorMessage = "{{ errorMessage }}";
-
         if (errorMessage) {
             showErrorModal(errorMessage);
         }
     }
-
-    // Call the function when the document is fully loaded
     document.addEventListener("DOMContentLoaded", function () {
         checkAndShowModals();
     });
