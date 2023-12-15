@@ -272,7 +272,7 @@ app.get("/mytransaction", async (req, res) => {
 //SIGN UP S
 app.post("/signup", upload.single("profilePicture"),async (req,res)=>{
 try {
-    const idNumber = req.body.idnumber;
+    const idnumber = req.body.idnumber;
     const contact = req.body.contact;
     const email = req.body.email;
     const rfid = req.body.rfid;
@@ -500,21 +500,43 @@ app.get("/status", async (req, res) => {
         const borrowid = req.query.borrowid;
         const request = await RequestModel.findById(borrowid);
         const circulation = await Circulation.findOne({ _id: borrowid });
-        if (!request && !circulation) {
+        const penalty = await Penalties.findOne({_id: borrowid });
+        if (!request && !circulation && !penalty) {
             return res.status(404).send("Book not found");
         }
-        const user = await User.findOne({ IDNumber: request ? request.IDNumber : circulation.BorrowerID });
-        const book = await Book.findOne({ CallNumber: request ? request.CallNumber : circulation.CallNumber });
+        let user;
+        if (request) {
+            user = await User.findOne({ IDNumber: request.IDNumber });
+        } else if (circulation) {
+            user = await User.findOne({ IDNumber: circulation.BorrowerID });
+        } else if (penalty) {
+            user = await User.findOne({ IDNumber: penalty.IDnumber });
+        } else {
+            return res.status(404).send("No related data found");
+        }
+
+        let book;
+        if (request) {
+            book = await Book.findOne({ CallNumber: request.CallNumber });
+        } else if (circulation) {
+            book = await Book.findOne({ CallNumber: circulation.CallNumber });
+        } else if (penalty){
+            book = await Book.findOne({ CallNumber: penalty.Callnumber })
+        } else {
+            // Handle the case where there's no related request or circulation
+            return res.status(404).send("No related book found");
+        }
         res.render("status", {
-            title: request ? request.Title : circulation.Title,
+            title: request ? request.Title : (circulation ? circulation.Title : (penalty ? penalty.Title : '')),
             edition: request ? request.EditionNumber : '',
-            author: request ? request.CreatorAuthor : circulation.BorrowerName,
+            author: request ? request.CreatorAuthor : '',
             user: user,
             book: book,
-            requeststatus: request ? request.RequestStatus : circulation.CirculationStatus,
+            requeststatus: request ? request.RequestStatus : (circulation ? circulation.CirculationStatus: (penalty ? penalty.PenaltyStatus: '')),
             pickupdue: request ? request.PickupDue: '',
-            returndate: request ? '': circulation.ReturnDate,
-            duedate: request ? '': circulation.DueDate,
+            returndate: request ? '' : (circulation ? circulation.ReturnDate : ''),
+            duedate: request ? '' : (circulation ? circulation.DueDate : ''),
+
         });
     } catch (error) {
         console.error("Error:", error);
@@ -522,6 +544,28 @@ app.get("/status", async (req, res) => {
     }
 });
 // STATUS PAGE S
+
+app.get("/penalty", async (req, res) => {
+    try {
+        const borrowid = req.query.borrowid;
+        const penalty = await Penalties.findOne({_id: borrowid });
+        if (!penalty) {
+            return res.status(404).send("not found");
+        }
+        const user = await User.findOne({ IDNumber: penalty.IDnumber});
+        const book = await Book.findOne({ CallNumber: penalty.Callnumber });
+        res.render("status", {
+            title: penalty.Title,
+            user: user,
+            book: book,
+            requeststatus: penalty.PenaltyStatus,
+            
+        });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Error occurred while retrieving the book");
+    }
+});
 
 // CANCEL REQUEST S --------------------------------------->>>>>>>>>
 app.post("/cancel-request/:bookId", async (req, res) => {
