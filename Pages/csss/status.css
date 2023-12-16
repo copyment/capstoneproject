@@ -284,3 +284,7 @@ header nav ul li.active::after{
 .cancelled-status {
   color: red;
 }
+
+.penalty-info{
+  margin-top: 5%;
+}

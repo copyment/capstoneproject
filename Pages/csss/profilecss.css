@@ -153,6 +153,7 @@ header nav ul li.active::after{
     margin-top: -345px;
     margin-left: 325px;
     margin-bottom: -350px;
+    position: relative;
 }
 .content .div-text{
     position: absolute;
@@ -191,7 +192,8 @@ header nav ul li.active::after{
 .profile-container {
     max-width: 800px;
     margin: 20px auto;
-    padding: 20px;
+    height: 750px;
+    padding: 30px;
     background-color: #fff;
     display: flex; /* Use flexbox for better alignment */
     flex-direction: column; /* Stack children vertically */
@@ -244,9 +246,8 @@ header nav ul li.active::after{
     display: flex;
     flex-direction: column; 
     align-items: center; 
-    
-
 }
+
 .detail-box2 h4 {
     color: #333;
     margin-bottom: 10px;
@@ -289,7 +290,21 @@ header nav ul li.active::after{
   }
 /*-------------- USER INFORMATION END --------------*/
 
-.edit-profile-btn {
+
+
+.button-group {
+    position: absolute;
+    bottom: 4%;
+    left: 2rem;
+    display: flex;
+}
+
+.save-btn,
+.cancel-btn {
+    margin-right: 5px;
+}
+
+.edit-btn {
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #3498db;
@@ -297,12 +312,50 @@ header nav ul li.active::after{
     text-decoration: none;
     border-radius: 5px;
     font-size: 16px;
-    align-self: flex-end; 
+    border: 1px;
+    margin-right: 1rem;
+    position: absolute;
+    bottom: 4%;
+    right: 10px;
 }
 
 /* Adjust button styles as needed */
-.edit-profile-btn:hover {
+.edit-btn:hover {
     background-color: #2980b9;
+}
+
+.save-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #019f50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    align-self: flex-end; 
+    border: 1px;
+}
+
+/* Adjust button styles as needed */
+.save-btn:hover {
+    background-color: #09db21;
+}
+
+.cancel-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #d01d01;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    align-self: flex-end; 
+    border: 1px;
+}
+
+/* Adjust button styles as needed */
+.cancel-btn:hover {
+    background-color: #f02303;
 }
 
 /* Add styles for the edit buttons */

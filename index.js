@@ -490,6 +490,9 @@ app.post("/check", async (req, res) => {
 
 // STATUS PAGE S
 hbs.registerHelper('formatDate', function(dateString) {
+    if (!dateString) {
+        return ''; // or any default value you want to display
+    }
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', options);
@@ -500,8 +503,7 @@ app.get("/status", async (req, res) => {
         const borrowid = req.query.borrowid;
         const request = await RequestModel.findById(borrowid);
         const circulation = await Circulation.findOne({ _id: borrowid });
-        const penalty = await Penalties.findOne({_id: borrowid });
-        if (!request && !circulation && !penalty) {
+        if (!request && !circulation) {
             return res.status(404).send("Book not found");
         }
         let user;
@@ -509,8 +511,6 @@ app.get("/status", async (req, res) => {
             user = await User.findOne({ IDNumber: request.IDNumber });
         } else if (circulation) {
             user = await User.findOne({ IDNumber: circulation.BorrowerID });
-        } else if (penalty) {
-            user = await User.findOne({ IDNumber: penalty.IDnumber });
         } else {
             return res.status(404).send("No related data found");
         }
@@ -520,23 +520,21 @@ app.get("/status", async (req, res) => {
             book = await Book.findOne({ CallNumber: request.CallNumber });
         } else if (circulation) {
             book = await Book.findOne({ CallNumber: circulation.CallNumber });
-        } else if (penalty){
-            book = await Book.findOne({ CallNumber: penalty.Callnumber })
         } else {
             // Handle the case where there's no related request or circulation
             return res.status(404).send("No related book found");
         }
         res.render("status", {
-            title: request ? request.Title : (circulation ? circulation.Title : (penalty ? penalty.Title : '')),
+            title: request ? request.Title : circulation.Title,
             edition: request ? request.EditionNumber : '',
             author: request ? request.CreatorAuthor : '',
             user: user,
             book: book,
-            requeststatus: request ? request.RequestStatus : (circulation ? circulation.CirculationStatus: (penalty ? penalty.PenaltyStatus: '')),
+            requeststatus: request ? request.RequestStatus : circulation.CirculationStatus,
             pickupdue: request ? request.PickupDue: '',
-            returndate: request ? '' : (circulation ? circulation.ReturnDate : ''),
-            duedate: request ? '' : (circulation ? circulation.DueDate : ''),
-
+            returndate: request ? '' : circulation.ReturnDate,
+            duedate: request ? '' : circulation.DueDate,
+            datereq: request? request.DateRequested :'',
         });
     } catch (error) {
         console.error("Error:", error);
@@ -554,12 +552,15 @@ app.get("/penalty", async (req, res) => {
         }
         const user = await User.findOne({ IDNumber: penalty.IDnumber});
         const book = await Book.findOne({ CallNumber: penalty.Callnumber });
-        res.render("status", {
+        res.render("penalty", {
             title: penalty.Title,
             user: user,
             book: book,
             requeststatus: penalty.PenaltyStatus,
-            
+            penaltydesc: penalty.PenaltyDesc,
+            amount: penalty.PenaltyAmount,
+            issue: penalty.PenaltyIssued,
+            resolved: penalty.PenaltyResolved,
         });
     } catch (error) {
         console.error("Error:", error);
@@ -567,31 +568,6 @@ app.get("/penalty", async (req, res) => {
     }
 });
 
-// CANCEL REQUEST S --------------------------------------->>>>>>>>>
-app.post("/cancel-request/:bookId", async (req, res) => {
-    try {
-        const bookId = req.params.bookId;
-        const userId = req.session.user._id;
-        const request = await RequestModel.findOne({
-            MemberId: userId,
-            RequestStatus: "Pending"
-        });
-        if (!request) {
-            return res.status(404).send("Request not found");
-        }
-        request.RequestStatus = "Cancelled";
-        const currentDate = new Date(); 
-        const formattedDate = currentDate.toISOString();
-        request.DateAssest = formattedDate;
-        await request.save();
-        console.log("Request cancelled successfully");
-        res.status(200).json({ message: "Request cancelled successfully" });
-    } catch (error) {
-        console.error("Error:", error);
-        res.status(500).send("Error occurred while cancelling the request");
-    }
-});
-// CANCEL REQUEST E --------------------------------------->>>>>>>>>
 
 // BOOK BOOKMARK S --------------------------------------->>>>>>>>>
 app.post("/bookmark", async (req, res) => {
@@ -659,6 +635,69 @@ app.get("/bookmarks", async (req, res) => {
 });
 // BOOKMARK PAGE E
 
+// CANCEL REQUEST S --------------------------------------->>>>>>>>>
+app.post("/cancel-request/:bookId", async (req, res) => {
+    try {
+        const userId = req.session.user._id;
+
+        // Find the request to be canceled
+        const request = await RequestModel.findOne({
+            MemberId: userId,
+            RequestStatus: "Pending",
+        });
+
+        if (!request) {
+            return res.status(404).send("Request not found");
+        }
+
+        // Cancel the request
+        request.RequestStatus = "Cancelled";
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString();
+        request.DateAssest = formattedDate;
+        await request.save();
+
+        // Remove the request from MongoDB
+        await RequestModel.findOneAndDelete({
+            MemberId: userId,
+            RequestStatus: "Cancelled"
+        });
+
+        console.log("Request cancelled successfully");
+        res.status(200).json({ message: "Request cancelled successfully" });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Error occurred while cancelling the request");
+    }
+});
+// CANCEL REQUEST E --------------------------------------->>>>>>>>>
+
+// CANCEL REQUEST S --------------------------------------->>>>>>>>>
+//app.post("/cancel-request/:bookId", async (req, res) => {
+    //try {
+        //const bookId = req.params.bookId;
+        //const userId = req.session.user._id;
+        //const request = await RequestModel.findOne({
+            //MemberId: userId,
+            //RequestStatus: "Pending"
+        //});
+        //if (!request) {
+            //return res.status(404).send("Request not found");
+        //}
+       // request.RequestStatus = "Cancelled";
+        //const currentDate = new Date(); 
+        //const formattedDate = currentDate.toISOString();
+        //request.DateAssest = formattedDate;
+       // await request.save();
+        //console.log("Request cancelled successfully");
+        //res.status(200).json({ message: "Request cancelled successfully" });
+    //} catch (error) {
+        //console.error("Error:", error);
+        //res.status(500).send("Error occurred while cancelling the request");
+    //}
+//});
+// CANCEL REQUEST E --------------------------------------->>>>>>>>>
+
 // REMOVE BOOKMARK S --------------------------------------->>>>>>>>>
 app.post("/deleteBookmark/:bookmarkId", async (req, res) => {
     try {
@@ -696,9 +735,28 @@ app.get("/search", async (req, res) => {
 // SEARCH RESULT PAGE E
 
 app.post('/update-profile', upload.single('profilePicture'), async (req, res) => {
-    const userId = req.session.user._id;
 
     try {
+        const userId = req.session.user._id;
+        const contact = req.body.contact;
+        const email = req.body.email;
+        const usern = req.body.username;
+        const existingContact = await User.findOne({ ContactNumber: contact, _id: { $ne: userId } });
+        const existingEmail = await User.findOne({ Email: email, _id: { $ne: userId } });
+        const existingUsername = await User.findOne({ Username: usern, _id: { $ne: userId } });
+
+        if (existingContact) {
+            return res.status(200).json({ message: "Contact Number already exists. Please try another!" });
+        }
+        
+        if (existingEmail) {
+            return res.status(200).json({ message: "Email already exists. Please try another!" });
+        }
+        
+        if (existingUsername) {
+            return res.status(200).json({ message: "Username already exists. Please try another!" });
+        }
+
         const user = await User.findById(userId);
         // Update user information if the fields are provided in the request body
         if (req.body.contact) {
@@ -709,9 +767,6 @@ app.post('/update-profile', upload.single('profilePicture'), async (req, res) =>
         }
         if (req.body.address) {
             user.Address = req.body.address;
-        }
-        if (req.body.rfid) {
-            user.Rfid = req.body.rfid;
         }
         if (req.body.username) {
             user.Username = req.body.username;
@@ -732,32 +787,15 @@ app.post('/update-profile', upload.single('profilePicture'), async (req, res) =>
             // Update the user's profile picture field with the base64 encoded image
             user.ProfilePicture = profilePictureBase64;
         }
-
-        const userCircu = await Circulation.find({
-            BorrowerMemberID: userId,
-        });
-        
-
-        if (userCircu && userCircu.length > 0) {
-            for (const circu of userCircu) {
-                if (req.body.rfid) {
-                    circu.BorrowerMemberRFID = req.body.rfid;
-                }
-                await circu.save();
-            }
-        } else {
-            // Handle the case where no matching documents were found
-            console.log('No circulation documents found for the user.');
-        }
-        
         // Save the updated user data
         await user.save();
         // Update session data with the new user details
         req.session.user = user;
-        // Redirect to the profile page with updated information
-        res.redirect('/profile');
+        res.status(200).json({ message: "update saved successfully" });
+        console.log("update saved successfully");
     } catch (error) {
         console.error(error);
+        console.log(error);
         res.status(500).send('Error updating profile');
     }
 });

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item Status</title>
+    <title>Penalty Status</title>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
@@ -73,15 +73,22 @@
         </div>
 
         <div class="container2">
-            <h3 class="title">circulation details</h3>
+            <h3 class="title">Penalty details</h3>
             <p class="item-id">penalty Status: {{ requeststatus }}</p>
             <div class="order-item">
                 <img src ="data:image/jpeg;base64,{{ book.ItemImage }}" alt="{{Title}}">
             </div>
             <div class="item-info">
-                <h3 class="item-name">{{ title }}</h3>
-                <p class="item-description">Edition: {{ book.EditionNumber }}</p>
-                <p class="item-description">Author: {{ book.CreatorAuthor }}</p>
+                <h3 class="item-name">{{ title }} ({{ book.EditionNumber }} Edition) </h3>
+                <h4 class="penalty-info">PENALTY INFORMATION</h4>
+                <p class="item-description">Penalty Description: {{ penaltydesc }}</p>
+                <p class="item-description">Penalty Amount: {{ amount }}</p>
+                {{#if (eq requeststatus "Unresolved")}}
+                <p class="item-description">Penalty Issued: {{ formatDate issue }}</p>
+                {{/if}}
+                {{#if (eq requeststatus "Resolved")}}
+                <p class="item-description">Penalty Resolved: {{ formatDate resolved }}</p>
+                {{/if}}
             </div>
         </div>
 

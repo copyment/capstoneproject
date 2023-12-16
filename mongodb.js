@@ -254,7 +254,7 @@ const PenaltiesSchema = new mongoose.Schema({
     PaymentAmount: { type:String,},
     PenaltyAmount: { type:String,},
     PenaltyDesc: { type:String,},
-    PenaltyIssue: { type:Date,},
+    PenaltyIssued: { type:Date,},
     PenaltyStatus: { type:String,},
     PenaltyResolved: { type:Date,},
     PEnaltyIssueBy: { type:String,},

@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./csss/profilecss.css">
 </head>
@@ -109,8 +111,11 @@
                             <input type="text" id="address" name="address" value="{{ user.Address }}" disabled>
                         </div>
                     </div>
-                    <button id="saveButton" type="submit" style="display: none;">Save Changes</button>
-                    <button id="editButton" type="button">Edit Profile</button>
+                    <div class="button-group">
+                        <button id="saveButton" class="save-btn" type="submit" style="display: none;">Save Changes</button>
+                        <button id="cancelButton" class="cancel-btn" type="button" style="display: none;">Cancel</button>
+                    </div>
+                    <button class="edit-btn" id="editButton" type="button">Edit Profile</button>
                 </form>
             </div>
         </div>
@@ -132,8 +137,15 @@
                 input.disabled = !input.disabled;
             });
             saveButton.style.display = saveButton.style.display === 'none' ? 'block' : 'none';
+            editButton.style.display = editButton.style.display === 'none' ? 'block' : 'none';
+            cancelButton.style.display = cancelButton.style.display === 'none' ? 'block' : 'none';
             uploadButton.style.display = 'block';
         });
+            cancelButton.addEventListener('click', () => {
+            // Reload the page to discard changes
+            window.location.reload();
+        });
+
         // Listen for changes in the file input
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
@@ -148,24 +160,73 @@
             }
         });
         // Function to handle form submission for profile update
-        document.getElementById('profileForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(document.querySelector('form'));
-            const response = await fetch('/update-profile', {
-                method: 'POST',
-                body: formData
-            });
-              if (response.ok) {
-                        // Success: Redirect to profile page
-                        window.location.href = '/profile';
-                    } else {
-                        // Handle errors based on status code or other conditions
-                        // For example, log the error or display an error message
-                        console.error('Error:', response.status);
-                        // Display an error message to the user or handle the error accordingly
+            document.getElementById('saveButton').addEventListener('click', async function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const confirmed = await Swal.fire({
+                    title: "Are you sure?",
+                    text: "Do you want to save the changes?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, Save it!"
+                });
+
+                if (confirmed.isConfirmed) {
+                    try {
+                        const formData = new FormData(document.querySelector('form'));
+                        const response = await fetch('/update-profile', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (data.message === "update saved successfully") {
+                                Swal.fire('Success!', 'Your update has been processed.', 'success')
+                                    .then(() => {
+                                        window.location.href = '/profile';
+                                    });
+                            } else if (data.message === "Contact Number already exists. Please try another!") {
+                                Swal.fire({
+                                    title: "Failed!",
+                                    text: "Contact Number already exists. Please try another!",
+                                    icon: "error"
+                                });
+                            } else if (data.message === "Email already exists. Please try another!") {
+                                Swal.fire({
+                                    title: "Failed!",
+                                    text: "Email already exists. Please try another!",
+                                    icon: "error"
+                                });
+                            } else if (data.message === "Username already exists. Please try another!") {
+                                Swal.fire({
+                                    title: "Failed!",
+                                    text: "Username already exists. Please try another!",
+                                    icon: "error"
+                                });
+                            }
+                        } else {
+                            Swal.fire({
+                                title: "Failedz!",
+                                text: "An unexpectedz error occurred.",
+                                icon: "error"
+                            });
+                        }
+                    } catch (error) {
+                        // Catch any unexpected errors during the update process
+                        console.error("Error:", error);
+                        Swal.fire({
+                            title: "Faileds!",
+                            text: "An unexpected error occurred.",error,
+                            icon: "error"
+                        });
                     }
-        });
-    });
+                }
+            });
+
+            });
 </script>
 
 <!-- ... (remaining HTML code) -->

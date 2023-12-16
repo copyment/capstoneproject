@@ -91,6 +91,9 @@
                 {{#if (eq requeststatus "Borrowed")}}
                 <p class="item-description">Due Date: {{ formatDate duedate }}</p>
                 {{/if}}
+                {{#if (eq requeststatus "Pending")}}
+                <p class="item-description">Date Requested: {{ formatDate datereq }}</p>
+                {{/if}}
             </div>
             <form id="cancel-request-form" action="/cancel-request/{{book.id}}" method="POST">
                 {{#if (eq requeststatus "Pending")}}

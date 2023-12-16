@@ -54,7 +54,6 @@
                     </li>
                 </ul>
             </div>
-
             <div class="content">
                 <div class="div-text">
                     <span>WELCOME TO</span>
@@ -64,37 +63,33 @@
             </div>
         </section>
         <!--------- SIDE MENU ROW E--------->
-
         <!--------- TOP BOOK ROW S--------->
-        <section class="sec-2">
-
-            <!--------- TOP BOOK S--------->
-            <div class="side-bar">
-                <div class="titile">
-                    <h4> CURRENTLY POPULAR </h4>
-                </div>
-                {{#each topBooks}}
-                <div class="item">
-                    <div class="div-img2">
-                        <img src="data:image/jpeg;base64,{{this.ItemImage}}" alt="{{this.Title}}">
+            <section class="sec-2">
+                <!--------- TOP BOOK S--------->
+                <div class="side-bar">
+                    <div class="titile">
+                        <h4> CURRENTLY POPULAR </h4>
                     </div>
-                    <div class="div-text">
-                        <h4><a href="/item?bookId={{this._id}}">{{this.Title}}</a></h4>
-                        <p>{{this.CreatorAuthor}}</p>
+                    {{#each topBooks}}
+                    <div class="item">
+                        <div class="div-img2">
+                            <img src="data:image/jpeg;base64,{{this.ItemImage}}" alt="{{this.Title}}">
+                        </div>
+                        <div class="div-text">
+                            <h4><a href="/item?bookId={{this._id}}">{{this.Title}}</a></h4>
+                            <p>{{this.CreatorAuthor}}</p>
+                        </div>
                     </div>
+                    {{/each}}
                 </div>
-                {{/each}}
-            </div>
-            <!--------- TOP BOOK E--------->
-
-            <!--------- NEW BOOKS S--------->
-            <div class="content">
-                <div class="titile">
-                    <h4>NEW ITEMS IN LIBRARY</h4>
-                </div>
-
-                <div class="all-items">
-                    {{#each latestBooks}}
+                <!--------- TOP BOOK E--------->
+                <!--------- NEW BOOKS S--------->
+                <div class="content">
+                    <div class="titile">
+                        <h4>NEW ITEMS IN LIBRARY</h4>
+                    </div>
+                    <div class="all-items">
+                        {{#each latestBooks}}
                             <div class="item">
                                 <div class="div-img">
                                     <img src="data:image/jpeg;base64,{{this.ItemImage}}" alt="{{this.Title}}">
@@ -104,12 +99,12 @@
                                     <p>{{this.CreatorAuthor}}</p>
                                 </div>
                             </div>
-                            {{/each}}
-
-            <!--------- NEW BOOKS E--------->
-        </section>
+                        {{/each}}
+                    </div>
+                </div>
+                <!--------- NEW BOOKS E--------->
+            </section>
         <!--------- TOP BOOK ROW E--------->
-
         <!--------- UPCOMING ROW S--------->
         <section class="sec-3">
 
@@ -160,6 +155,7 @@
             <!--------- THE COLLECTION E--------->
         </section>
         <!--------- UPCOMING ROW E --------->
+
 
 </body>
 </html>
