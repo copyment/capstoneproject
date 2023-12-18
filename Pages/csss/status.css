@@ -214,7 +214,7 @@ header nav ul li.active::after{
   padding:20px;
   height: 616px;
   background: white;
-  margin-left: 100px;
+  margin-left: 70px;
   width:500px;
   box-shadow: 0 5px 10px rgba(0,0,0,.1);
   position: relative;

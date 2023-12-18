@@ -399,6 +399,16 @@ header nav ul li.active::after{
     .sec-2 .item .div-img img {
         margin-right: 20px;
     }
+    header nav .logo-search {
+        justify-content: center;
+        margin-left: 0;
+    }
+    header nav .logo-search .search-box {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 400px;
+    }
 }
 
 /* Updated CSS for smaller screens */
@@ -448,6 +458,39 @@ header nav ul li.active::after{
     .sec-3 .hero .content {
         display: none; /* Hide the content */
     }
+
+    /* Adjust header navigation item spacing */
+    .sec-3 header nav ul li {
+        margin-right: 20px; /* Or a smaller value */
+    }
+
+    /* Ensure images resize appropriately */
+    .sec-3 .item .div-img2 img {
+        max-width: 100%; /* Ensure images stay within their containers */
+        height: auto; /* Maintain aspect ratio */
+    }
+    .sec-3 .all-items .item .div-img img {
+        max-width: 100%; /* Ensure images stay within their containers */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .sec-3 section {
+        flex-direction: column; /* Stack elements vertically */
+        width: 90%; /* Adjust width */
+    }
+    .sec-3 section .side-bar {
+        width: 100%; /* Occupy full width */
+        margin-bottom: 20px; /* Add some space at the bottom */
+    }
+    /* Adjust widths or paddings for better layout on smaller screens */
+    .sec-3 section .content {
+        width: 100%; /* Or a different percentage to fit well */
+    }
+
+    .sec-3 .hero .content {
+        display: none; /* Hide the content */
+    }
+
 
     /* Other adjustments as needed */
 }

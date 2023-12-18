@@ -218,6 +218,9 @@ header nav ul li.active::after{
         flex: 0 0 calc(50% - 20px); /* Display two items per row */
         text-align: center; /* Center the content */
     }
+    .search-box{
+        text-align: center;
+    }
 }
 
 /* Updated CSS for medium screens */
@@ -228,6 +231,16 @@ header nav ul li.active::after{
     }
     .item .div-img img{
         margin-right: 20px;
+    }
+    header nav .logo-search {
+        justify-content: center;
+        margin-left: 0;
+    }
+    header nav .logo-search .search-box {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 400px;
     }
 }
 
@@ -245,5 +258,22 @@ header nav ul li.active::after{
         margin: 0 auto; /* Center the image if needed */
         max-width: 100%; /* Ensure images stay within their containers */
         height: auto; /* Maintain aspect ratio */
+    }
+    header nav .logo-search {
+
+        margin-bottom: 15px;
+    }
+    header nav .logo-search .search-box {
+        width: 100%;
+        margin: 0;
+        max-width: 100%;
+    }
+    header nav .logo-search .search-box input {
+        padding: 0 30px 0 12px;
+        border-radius: 25px;
+    }
+    header nav .logo-search .search-box i {
+        right: 10px;
+        line-height: 35px;
     }
 }

@@ -32,7 +32,7 @@ body{
 }
 .container1 {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-image: linear-gradient(rgba(0,0,0,0.3), transparent), url(/imgs/logg.jpg);
     background-size: cover;
     background-position: center;
@@ -108,11 +108,12 @@ h2{
     color: rgba(27, 161, 40, 0.984);
     padding-bottom: 1px solid silver;
 }
-.content{
+.content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 20px 0;
+    align-items: center; /* Center items vertically */
 }
 .input-box{
     display: flex;
@@ -168,3 +169,18 @@ h2{
     margin-top: 10px;
 }
 
+@media screen and (max-width: 900px){
+    .input-box {
+        width: 100%; /* Occupy full width on smaller screens */
+        align-items: center;
+        justify-content: center;
+    }
+    .container1 .container{
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container1 nav{
+        margin-bottom: 100px;
+    }
+}

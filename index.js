@@ -41,6 +41,7 @@ app.use(express.static('font'));
 app.use(express.static('jss'));
 app.use(express.static('LOGO'));
 app.use(express.static('load'));
+app.use(express.static('apk'));
 app.use(express.json({ limit: '50mb' }))
 app.set("view engine", "hbs")
 app.set("views", tempelatePath)
@@ -81,12 +82,18 @@ app.get("/home", async (req,res) => {
                 $limit: 1
             }
         ]);
-        if (mostBorrowedCallNumber.length === 0) {
-            throw new Error("No books found");
-        }
-        const mostBorrowedBookCallNumber = mostBorrowedCallNumber[0]._id;
-        const mostBorrowedBook = await Book.findOne({ CallNumber: mostBorrowedBookCallNumber });
 
+        let mostBorrowedBook = null;
+        if (mostBorrowedCallNumber.length !== 0) {
+            const mostBorrowedBookCallNumber = mostBorrowedCallNumber[0]._id;
+            try {
+                mostBorrowedBook = await Book.findOne({ CallNumber: mostBorrowedBookCallNumber });
+                console.log("Found book:", mostBorrowedBook);
+            } catch (error) {
+                console.error("Error finding book:", error);
+            }
+        }
+        
         const userId = req.session.user._id;
         const recentUserActivity = await Circulation.find({ BorrowerMemberID: userId })
             .sort({ 'IssueDate': -1 })
@@ -105,7 +112,7 @@ app.get("/home", async (req,res) => {
                 book,
             };
         }));
-        res.render("home", {latestBooks, randomBooks, topBooks, recentUserActivity: recentUserActivityDetails});
+        res.render("home", {latestBooks, randomBooks, topBooks: mostBorrowedBook ? [mostBorrowedBook] : [], recentUserActivity: recentUserActivityDetails});
     } catch (error){
         console.error("Error:", error);
         res.status(500).send("Error occured.")
@@ -557,7 +564,7 @@ app.get("/status", async (req, res) => {
         } else if (circulation) {
             book = await Book.findOne({ CallNumber: circulation.CallNumber });
         } else {
-            // Handle the case where there's no related request or circulation
+            
             return res.status(404).send("No related book found");
         }
 

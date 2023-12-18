@@ -192,3 +192,20 @@ h2{
     border: 2px solid red; /* Set the border color to red */
 }
 
+@media (max-width: 768px) {
+    .container1 .container{
+        justify-content: center;
+        align-items: center;
+    }
+    .content {
+        flex-direction: column;
+    }
+    .content .input-box{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .input-box {
+        width: 100%;
+    }
+}
