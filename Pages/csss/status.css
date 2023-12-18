@@ -123,7 +123,6 @@ header nav ul li.active::after{
   align-items: center;
   padding:25px;
   min-height: 100vh;
-  background: linear-gradient(90deg, #2ecc71 60%, #27ae60 40.1%);
 }
 
 .container1{
@@ -213,7 +212,7 @@ header nav ul li.active::after{
 .container2{
   display: block;
   padding:20px;
-  min-height: 92vh;
+  height: 616px;
   background: white;
   margin-left: 100px;
   width:500px;
@@ -235,7 +234,6 @@ header nav ul li.active::after{
   border-radius: 5px;
   padding: 15px;
   margin-bottom: 20px;
-  justify-content: center;
 }
 .container2 .order-item img {
   width: 150px;
@@ -245,6 +243,9 @@ header nav ul li.active::after{
 .container2 .item-info {
   flex: 1;
   align-content: center;
+}
+.container2 .item-info2 {
+ display: none;
 }
 .container2 .item-name {
   text-transform: uppercase;
@@ -288,3 +289,146 @@ header nav ul li.active::after{
 .penalty-info{
   margin-top: 5%;
 }
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 480px) {
+  header nav ul li {
+    margin-right: 10px; /* Or a smaller value */
+}
+.container {
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center align content */
+  padding: 10px; /* Adjust padding for better spacing */
+}
+
+.container1,
+.container2 {
+  width: 100%; /* Take full width */
+  margin-left: 0; /* Remove the left margin */
+}
+
+.container2 {
+  margin-top: 20px; /* Add some space between the sections */
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* You can adjust font sizes, padding, and other styles for better readability on smaller screens */
+/* For example, reducing font sizes or padding for better fit */
+
+
+/* Styles for the item list */
+.container2 .order-item {
+  flex-direction: column; /* Stack item details vertically */
+  border: none; /* Remove border */
+  padding: 10px; /* Adjust padding */
+  margin-bottom: 15px; /* Increase spacing between items */
+  align-items: center;
+}
+
+.container2 .order-item img {
+  max-width: 100%; /* Make the image take full width */
+  margin-bottom: 10px; /* Add space between image and text */
+  height: auto;
+}
+
+.container2 .item-info {
+  width: 100%;
+  text-align: center; /* Center align item details */
+  margin-bottom: 50px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.container1 .row .col .title {
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+.container1 .row .col {
+  width: 100%; /* Set columns to take full width on smaller screens */
+}
+.container1  .row .col .title {
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+}
+
+@media screen and (min-width: 481px) and (max-width: 809px) {
+  /* Adjust header navigation item spacing */
+  header nav ul li {
+      margin-right: 20px; /* Or a smaller value */
+  }
+  .container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center align content */
+    padding: 10px; /* Adjust padding for better spacing */
+  }
+  .container1,
+  .container2 {
+    width: 100%; /* Take full width */
+    margin-left: 0; /* Remove the left margin */
+  }
+  .container2 {
+    margin-top: 20px; /* Add some space between the sections */
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  .container2 .order-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 40px;
+  }
+  .container2 .order-item img {
+    width: 100px;
+  }
+  .container2 .item-info {
+    flex: 1;
+    align-content: center;
+    display: none;
+  }
+  .container2 .item-info2 {
+   display: block;
+  }
+  /* You can adjust font sizes, padding, and other styles for better readability on smaller screens */
+  /* For example, reducing font sizes or padding for better fit */
+  .container form .row .col .title {
+    font-size: 16px;
+    padding-bottom: 10px;
+  }
+  .container2 button {
+    padding: 10px; /* Adjust button padding */
+    font-size: 13px; /* Adjust button font size */
+  }
+}
+
+@media screen and (min-width: 810px) and (max-width: 1199px) {
+  header nav ul li {
+      margin-right: 70px; /* Adjust spacing */
+  }
+  .container2 .order-item {
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  header nav ul li {
+      margin-right: 70px; /* Adjust spacing */
+  }
+  .container2 .order-item {
+    justify-content: center;
+  }
+}
+

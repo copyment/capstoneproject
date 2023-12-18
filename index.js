@@ -213,8 +213,15 @@ app.get("/myborrow", async (req, res) => {
         });
         for (const book of borrowBooks) {
             const item = await Book.findOne({ CallNumber: book.CallNumber });
-            book.Image = item.ItemImage;
-            book.Author = item.CreatorAuthor;
+            if (!item) {
+                // Set a default or placeholder image URL
+                book.Image = "./imgs/warning.jpg"; // Replace with your default image URL
+                book.Author = "Unavailable or Deleted"
+            } else {
+                // Set the image URL from the found item
+                book.Image = item.ItemImage;
+                book.Author = item.CreatorAuthor;
+            }
         }
         console.log("Reserved Books:", borrowBooks);
         res.render("myborrow", { borrowBooks });
@@ -231,20 +238,34 @@ app.get("/myreserved", async (req, res) => {
         const userId = req.session.user._id;
         const reservedBooks = await RequestModel.find({
             MemberId: userId,
-            $or: [{ RequestStatus: "Pending" }, { RequestStatus: "Approved" }, { RequestStatus: "Declined" }]
+            $or: [
+                { RequestStatus: "Pending" },
+                { RequestStatus: "Approved" },
+                { RequestStatus: "Declined" },
+            ],
         });
         for (const book of reservedBooks) {
             const item = await Book.findOne({ CallNumber: book.CallNumber });
-            book.Image = item.ItemImage;
-            book.Author = item.CreatorAuthor;
+
+            // Check if item is not found
+            if (!item) {
+                // Set a default or placeholder image URL
+                book.Image = "./imgs/warning.jpg"; // Replace with your default image URL
+                book.Author = "Unavailable or Deleted"
+            } else {
+                // Set the image URL from the found item
+                book.Image = item.ItemImage;
+                book.Author = item.CreatorAuthor;
+            }
         }
-        console.log("Reserved Books:", reservedBooks);
         res.render("myreserved", { reservedBooks });
     } catch (error) {
-        console.error("Error:", error);
-        res.status(500).send("Error occurred while fetching reserved books");
+        // Handle the error appropriately (e.g., log it, send an error response)
+        console.error(error);
+        res.status(500).send("Internal Server Error");
     }
 });
+
 //MY RESERVED PAGE E
 
 //MY TRANSACTION PAGE S
@@ -257,8 +278,15 @@ app.get("/mytransaction", async (req, res) => {
         });
         for (const book of penalty) {
             const item = await Book.findOne({ CallNumber: book.Callnumber });
-            book.Image = item.ItemImage;
-            book.Author = item.CreatorAuthor;
+            if (!item) {
+                // Set a default or placeholder image URL
+                book.Image = "./imgs/warning.jpg"; // Replace with your default image URL
+                book.Author = "Unavailable or Deleted"
+            } else {
+                // Set the image URL from the found item
+                book.Image = item.ItemImage;
+                book.Author = item.CreatorAuthor;
+            }
         }
         console.log("Reserved Books:", penalty);
         res.render("mytransaction", { penalty });
@@ -390,6 +418,7 @@ app.post("/login", async (req, res) => {
 app.post("/request", async (req, res) => {
     try {
         const userId = req.body.userId;
+        const itemId = req.body.itemId;
         const name = req.body.fullname;
         const idNumber = req.body.idNumber;
         const title = req.body.title;
@@ -438,6 +467,7 @@ app.post("/request", async (req, res) => {
         const newRequest = new RequestModel({
             Accession: access,
             MemberId: userId,
+            ItemId: itemId,
             Fullname: name,
             IDNumber: idNumber,
             Title: title,
@@ -464,6 +494,7 @@ app.post("/request", async (req, res) => {
 app.post("/check", async (req, res) => {
     try {
         const userId = req.body.userId;
+        const itemId = req.body.itemId;
         const idNumber = req.body.idNumber;
         const address = req.body.address;
         const contact = req.body.contact
@@ -480,7 +511,7 @@ app.post("/check", async (req, res) => {
         const access = req.body.access;
         const member = req.body.type;
         res.render("check", { user: req.session.user, access,userId, author, bookId, idNumber, title,
-            callNumber, dateRequested, requestStatus, address, contact, email, image, name, edition, member,}); 
+            callNumber, dateRequested, requestStatus, address, contact, email, image, name, edition, member,itemId}); 
     } catch (error) {
         console.error("Error:", error);
         res.status(500).send("Error occurred while retrieving the book");
@@ -498,6 +529,9 @@ hbs.registerHelper('formatDate', function(dateString) {
     return date.toLocaleDateString('en-US', options);
 });
 
+
+const defaultAuthor = "Unavailable or Deleted";
+const defaultEdition = "Unavailable or Deleted";
 app.get("/status", async (req, res) => {
     try {
         const borrowid = req.query.borrowid;
@@ -515,6 +549,8 @@ app.get("/status", async (req, res) => {
             return res.status(404).send("No related data found");
         }
 
+        let defaultEdition = "Unavailable or deleted";
+        let defaultImage = "./imgs/warning.jpg";
         let book;
         if (request) {
             book = await Book.findOne({ CallNumber: request.CallNumber });
@@ -524,6 +560,8 @@ app.get("/status", async (req, res) => {
             // Handle the case where there's no related request or circulation
             return res.status(404).send("No related book found");
         }
+
+
         res.render("status", {
             title: request ? request.Title : circulation.Title,
             edition: request ? request.EditionNumber : '',
@@ -535,6 +573,8 @@ app.get("/status", async (req, res) => {
             returndate: request ? '' : circulation.ReturnDate,
             duedate: request ? '' : circulation.DueDate,
             datereq: request? request.DateRequested :'',
+            defaultEdition: defaultEdition,
+            defaultImage: defaultImage,
         });
     } catch (error) {
         console.error("Error:", error);
@@ -721,6 +761,7 @@ app.get("/search", async (req, res) => {
             $or: [ 
                 {Title: { $regex: searchQuery, $options: 'i' } },
                 {Genre: { $regex: searchQuery, $options: 'i' } },
+                {ItemType: { $regex: searchQuery, $options: 'i' }}
             ]
             });
         const randomBooks = await Book.aggregate([

@@ -23,22 +23,25 @@ section .content{
     background-color: #fff;
     border-radius: 10px;
 }
-section .filter-section{
-    margin-right: -70%;
-}
+
 
 /*-------------- HEADER s --------------*/
-header{
+header {
     background-color: rgb(46, 139, 87);
     margin-bottom: 30px;
-}
-header nav{
-    width: 85%;
-    margin: 0 auto;
+    width: 100%;
+    padding: 0px 20px; /* Adjust padding for better spacing */
+    box-sizing: border-box; /* Ensure padding doesn't affect total width */
 }
 
+header nav {
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 .logos {
     width: 90px;
+    max-width: 100%; /* Allow the logo to adapt to its container */
     height: 60px;
     cursor: pointer;
 }
@@ -50,15 +53,7 @@ header nav .logo-search{
     height: 80px;
     border-bottom: 1px solid #99999978;
 }
-header nav .logo-search .logo{
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 22px;
-    font-weight: bold;
-}
-header nav .logo-search .logo span{
-    color: #30f100;
-}
+
 header nav .logo-search .search-box{
     width: 500px;
     height: 40px;
@@ -85,6 +80,7 @@ header nav .logo-search .search-box i{
     cursor: pointer;
     color: #000000;
 }
+
 header nav .logo-search .icon a{
     color: #fff;
     margin-left: 10px;
@@ -93,6 +89,7 @@ header nav .logo-search .icon a{
 header nav .logo-search .icon a:hover{
     color: #fccb3f;
 }
+
 header nav ul li{
     display: inline-block;
     padding: 18px 0;
@@ -101,7 +98,7 @@ header nav ul li{
 }
 header nav ul li a{
     color: #fff;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 header nav ul li::after{
     position: absolute;
@@ -119,6 +116,7 @@ header nav ul li.active::after{
     width: 12px;
 }
 /*-------------- HEADER E --------------*/
+
 
 /*-------------- THE BOOK COLLECTION START --------------*/
 .sec-2 .side-bar .item{
@@ -149,14 +147,18 @@ header nav ul li.active::after{
 .all-items{
     padding: 20px;
 }
-.row{
+.row {
     display: flex;
-    flex-wrap: nowrap;
-    margin: 10px;
+    flex-wrap: wrap; /* Allow items to wrap to the next row */
+    margin: 10px -5px; /* Adjust margin to create space between items */
 }
-.all-items .item{
+.all-items .item {
+    flex: 0 0 calc(25% - 20px); /* Initially display four items per row */
+    margin: 10px; /* Adjust margin to create space between items */
+    box-sizing: border-box; /* Ensure padding and border don't affect the width */
     width: 22%;
     margin: 10px;
+
 }
 .item .div-img{
     border-bottom: 2px solid #e9eaf0;
@@ -202,3 +204,46 @@ header nav ul li.active::after{
 
 /*-------------- THE BOOK COLLECTION END --------------*/
 
+@media screen and (min-width: 1200px) {
+    header nav ul li {
+        margin-right: 70px; /* Adjust spacing */
+    }
+    section.sec-2 {
+        max-width: 1200px; /* Adjust the maximum width of the content */
+        margin: auto; /* Center the content horizontally */
+      }
+}
+@media screen and (max-width: 1199px) {
+    .all-items .item {
+        flex: 0 0 calc(50% - 20px); /* Display two items per row */
+        text-align: center; /* Center the content */
+    }
+}
+
+/* Updated CSS for medium screens */
+@media screen and (max-width: 991px) {
+    .all-items .item {
+        flex: 0 0 calc(50% - 20px); /* Display two items per row */
+        text-align: center; /* Center the content */
+    }
+    .item .div-img img{
+        margin-right: 20px;
+    }
+}
+
+/* Updated CSS for smaller screens */
+@media screen and (max-width: 768px) {
+    .all-items .item {
+        flex: 0 0 calc(100% - 20px); /* Display one item per row */
+        text-align: center; /* Center the content */
+    }
+    .all-items .item .div-img {
+        text-align: left; /* Align the image to the left */
+    }
+    .all-items .item .div-img img {
+        display: block; /* Make sure the image doesn't inherit center alignment */
+        margin: 0 auto; /* Center the image if needed */
+        max-width: 100%; /* Ensure images stay within their containers */
+        height: auto; /* Maintain aspect ratio */
+    }
+}

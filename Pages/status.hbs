@@ -32,6 +32,53 @@
     <!--------- PAGE HEADER E --------->
     <div class="container">
 
+        <div class="container2">
+            <h3 class="title">circulation details</h3>
+            <p class="item-id">circulation Status: {{ requeststatus }}</p>
+            <div class="order-item">
+                <img src ="data:image/jpeg;base64,{{ book.ItemImage }}" alt="Unavailable">
+                    <div class="item-info2">
+                    <h3 class="item-name">{{ title }}</h3>
+                    <p class="item-description">Edition: {{ book.EditionNumber }}</p>
+                    <p class="item-description">Author: {{ book.CreatorAuthor }}</p>
+                    {{#if (eq requeststatus "Approved")}}
+                    <p class="item-description">Pickup Until: {{ formatDate pickupdue }}</p>
+                    {{/if}}
+                    {{#if (eq requeststatus "Returned")}}
+                    <p class="item-description">Returned Date: {{ formatDate returndate }}</p>
+                    {{/if}}
+                    {{#if (eq requeststatus "Borrowed")}}
+                    <p class="item-description">Due Date: {{ formatDate duedate }}</p>
+                    {{/if}}
+                    {{#if (eq requeststatus "Pending")}}
+                    <p class="item-description">Date Requested: {{ formatDate datereq }}</p>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="item-info">
+                <h3 class="item-name">{{ title }}</h3>
+                <p class="item-description">Edition: {{ book.EditionNumber }}</p>
+                <p class="item-description">Author: {{ book.CreatorAuthor }}</p>
+                {{#if (eq requeststatus "Approved")}}
+                <p class="item-description">Pickup Until: {{ formatDate pickupdue }}</p>
+                {{/if}}
+                {{#if (eq requeststatus "Returned")}}
+                <p class="item-description">Returned Date: {{ formatDate returndate }}</p>
+                {{/if}}
+                {{#if (eq requeststatus "Borrowed")}}
+                <p class="item-description">Due Date: {{ formatDate duedate }}</p>
+                {{/if}}
+                {{#if (eq requeststatus "Pending")}}
+                <p class="item-description">Date Requested: {{ formatDate datereq }}</p>
+                {{/if}}
+            </div>
+            <form id="cancel-request-form" action="/cancel-request/{{book.id}}" method="POST">
+                {{#if (eq requeststatus "Pending")}}
+                    <button type="submit" id="cancel-request-button">Cancel Request</button>
+                {{/if}}
+            </form>
+        </div>
+
         <div class="container1">
             <div class="row">
                 <div class="col">
@@ -71,37 +118,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="container2">
-            <h3 class="title">circulation details</h3>
-            <p class="item-id">circulation Status: {{ requeststatus }}</p>
-            <div class="order-item">
-                <img src ="data:image/jpeg;base64,{{ book.ItemImage }}" alt="{{Title}}">
-            </div>
-            <div class="item-info">
-                <h3 class="item-name">{{ title }}</h3>
-                <p class="item-description">Edition: {{ book.EditionNumber }}</p>
-                <p class="item-description">Author: {{ book.CreatorAuthor }}</p>
-                {{#if (eq requeststatus "Approved")}}
-                <p class="item-description">Pickup Until: {{ formatDate pickupdue }}</p>
-                {{/if}}
-                {{#if (eq requeststatus "Returned")}}
-                <p class="item-description">Returned Date: {{ formatDate returndate }}</p>
-                {{/if}}
-                {{#if (eq requeststatus "Borrowed")}}
-                <p class="item-description">Due Date: {{ formatDate duedate }}</p>
-                {{/if}}
-                {{#if (eq requeststatus "Pending")}}
-                <p class="item-description">Date Requested: {{ formatDate datereq }}</p>
-                {{/if}}
-            </div>
-            <form id="cancel-request-form" action="/cancel-request/{{book.id}}" method="POST">
-                {{#if (eq requeststatus "Pending")}}
-                    <button type="submit" id="cancel-request-button">Cancel Request</button>
-                {{/if}}
-            </form>
-        </div>
-
     </div>    
     
 

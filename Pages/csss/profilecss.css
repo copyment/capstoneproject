@@ -18,20 +18,25 @@ section{
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    
 }
 /*-------------- HEADER s --------------*/
-header{
+header {
     background-color: rgb(46, 139, 87);
     margin-bottom: 30px;
-
+    width: 100%;
+    padding: 0px 20px; /* Adjust padding for better spacing */
+    box-sizing: border-box; /* Ensure padding doesn't affect total width */
 }
-header nav{
-    width: 85%;
+
+header nav {
+    align-items: center;
+    max-width: 1200px;
     margin: 0 auto;
 }
-
 .logos {
     width: 90px;
+    max-width: 100%; /* Allow the logo to adapt to its container */
     height: 60px;
     cursor: pointer;
 }
@@ -43,41 +48,6 @@ header nav .logo-search{
     height: 80px;
     border-bottom: 1px solid #99999978;
 }
-header nav .logo-search .logo{
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 22px;
-    font-weight: bold;
-}
-header nav .logo-search .logo span{
-    color: #30f100;
-}
-header nav .logo-search .search-box{
-    width: 500px;
-    height: 40px;
-    position: relative;
-    margin-left: 500px;
-}
-header nav .logo-search .search-box input{
-    width: 100%;
-    height: 100%;
-    padding: 0 50px 0 12px;
-    border-radius: 30px;
-    outline: none;
-    border: none;
-}
-header nav .logo-search .search-box i{
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 50px;
-    text-align: center;
-    line-height: 40px;
-    border-left: 1px solid #99999978;
-    cursor: pointer;
-    color: #000000;
-}
 header nav .logo-search .icon a{
     color: #fff;
     margin-left: 10px;
@@ -86,6 +56,7 @@ header nav .logo-search .icon a{
 header nav .logo-search .icon a:hover{
     color: #fccb3f;
 }
+
 header nav ul li{
     display: inline-block;
     padding: 18px 0;
@@ -94,7 +65,7 @@ header nav ul li{
 }
 header nav ul li a{
     color: #fff;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 header nav ul li::after{
     position: absolute;
@@ -113,9 +84,8 @@ header nav ul li.active::after{
 }
 /*-------------- HEADER E --------------*/
 
-/*-------------- SIDE MENU START --------------*/
-.hero .side-bar{
-    overflow: hidden;
+
+section .side-bar{
     width: 25%;
     background-color: #fff;
     border-radius: 10px;
@@ -125,19 +95,20 @@ header nav ul li.active::after{
     background-color: rgb(46, 139, 87);
     color: #ffffff;
     font-size: 18px;
+    border-radius: 5px;
 }
 .hero .side-bar i{
     margin-right: 10px;
 }
 .hero .side-bar ul li{
     padding: 17px 20px;
-    color: #ffffff;
+    color: #000000;
     border-bottom: 1px solid #e9eaf0;
     cursor: pointer;
     text-transform: uppercase;
 }
 .hero .side-bar ul li:hover{
-    background-color:  rgb(83, 241, 151);
+    background-color: rgb(83, 241, 151);
 }
 .hero .side-bar ul li a{
     color: #000000;
@@ -297,6 +268,9 @@ header nav ul li.active::after{
     bottom: 4%;
     left: 2rem;
     display: flex;
+
+    margin-top: auto;
+
 }
 
 .save-btn,
@@ -379,4 +353,111 @@ header nav ul li.active::after{
     background-color: rgba(0, 0, 0, 0.801);
     box-shadow: 2px 4px 4px rgb(0, 0, 0, 0.644);
     display: none;
+}
+
+
+
+/* For larger screens */
+@media screen and (min-width: 1200px) {
+    header nav ul li {
+        margin-right: 70px; /* Adjust spacing */
+    }
+    section.sec-2 {
+        max-width: 1200px; /* Adjust the maximum width of the content */
+        margin: auto; /* Center the content horizontally */
+      }
+}
+
+@media screen and (max-width: 768px) {
+    /* Adjust header navigation item spacing */
+    header nav ul li {
+        margin-right: 20px; /* Or a smaller value */
+    }
+
+    section {
+        flex-direction: column; /* Stack elements vertically */
+        width: 90%; /* Adjust width */
+    }
+    section .side-bar {
+        width: 100%; /* Occupy full width */
+        margin-bottom: 20px; /* Add some space at the bottom */
+    }
+    .content {
+        width: 100%; /* Adjust content width */
+        margin: 20px auto; /* Center content */
+    }
+
+    .profile-container {
+        padding: 15px; /* Adjust padding */
+        height: auto; /* Allow height to adjust */
+    }
+    .profile-details {
+        flex-direction: column; /* Stack details vertically */
+        align-items: center; /* Center the details */
+        flex-direction: column; /* Stack details vertically */
+        align-items: center; /* Center the details */
+    }
+
+    .detail-box,
+    .detail-box2 {
+        width: 100%; /* Occupy full width */
+    }
+
+    /* Adjust button styles for smaller screens */
+    .save-btn,
+    .cancel-btn {
+        margin-top: 20px; /* Adjust spacing */
+        width: 50%; /* Occupy full width */
+    }
+    .edit-btn{
+        position: static; /* Reset position */
+        justify-content: center; /* Align buttons to the center horizontally */
+        align-items: center; /* Align buttons to the center vertically */
+        width: 100%;
+        margin-top: 10px; /* Add spacing between edit button and buttons */
+        margin-right: 0; /* Reset margin */
+    }
+    .button-group {
+        width: 100%; /* Occupy full width */
+        margin-top: 10px; /* Adjust spacing */
+        bottom: 10px;
+        left: 3px;
+      }
+}
+
+
+
+@media screen and (max-width: 480px) {
+    header nav ul li {
+        margin-right: 10px; /* Or a smaller value */
+    }
+    .profile-container {
+        padding: 10px; /* Adjust padding */
+        height: auto; /* Allow height to adjust */
+    }
+    .button-group {
+        position: static; /* Reset position */
+        width: 100%; /* Occupy full width */
+        flex-direction: column; /* Arrange buttons horizontally */
+        justify-content: center; /* Align buttons to the center horizontally */
+        align-items: center; /* Align buttons to the center vertically */
+        margin-top: 20px; /* Adjust spacing */
+      }
+    
+      /* Adjust button styles */
+      .save-btn,
+      .cancel-btn {
+        width: 100%;
+        margin-top: 10px; /* Add spacing between buttons */
+        margin-right: 0px; /* Add spacing between buttons */
+      }
+    
+      .edit-btn {
+        position: static; /* Reset position */
+        justify-content: center; /* Align buttons to the center horizontally */
+        align-items: center; /* Align buttons to the center vertically */
+        width: 100%;
+        margin-top: 10px; /* Add spacing between edit button and buttons */
+        margin-right: 0; /* Reset margin */
+      }
 }

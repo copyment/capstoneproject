@@ -215,4 +215,45 @@ header nav ul li.active::after{
     color:#000000
     
 }
-
+@media screen and (max-width: 480px) {
+    header nav ul li {
+        margin-right: 10px; /* Or a smaller value */
+    }
+  
+    .container {
+      margin-top: 20px; /* Add some space between the sections */
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      width: 100%; /* Take full width */
+      margin-left: 0; /* Remove the left margin */
+    }
+    
+    /* You can adjust font sizes, padding, and other styles for better readability on smaller screens */
+    /* For example, reducing font sizes or padding for better fit */
+    .container form .row .col .title {
+      font-size: 16px;
+      padding-bottom: 10px;
+    }
+    
+    /* Styles for the item list */
+    .container .order-item {
+      flex-direction: column; /* Stack item details vertically */
+      border: none; /* Remove border */
+      padding: 10px; /* Adjust padding */
+      margin-bottom: 15px; /* Increase spacing between items */
+      align-items: center;
+      border: 1px solid #ccc;
+    }
+  
+    .container .order-item img {
+      max-width: 100%; /* Make the image take full width */
+      margin-bottom: 10px; /* Add space between image and text */
+      height: auto;
+    }
+  
+    .container .item-info {
+      width: 100%;
+      text-align: center; /* Center align item details */
+    }
+}

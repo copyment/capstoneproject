@@ -384,13 +384,3 @@ section .side-bar{
         text-align: center; /* Center text on smaller screens */
     }
 }
-
-/* For larger screens */
-@media screen and (min-width: 1200px) {
-    /* Adjust spacing or other styles for larger screens */
-    header nav ul li {
-        margin-right: 70px; /* Or your preferred value */
-    }
-
-    /* Other adjustments for larger screens */
-}

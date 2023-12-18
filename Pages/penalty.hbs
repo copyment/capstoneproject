@@ -32,6 +32,26 @@
     <!--------- PAGE HEADER E --------->
     <div class="container">
 
+        <div class="container2">
+            <h3 class="title">Penalty details</h3>
+            <p class="item-id">penalty Status: {{ requeststatus }}</p>
+            <div class="order-item">
+                <img src ="data:image/jpeg;base64,{{ book.ItemImage }}" alt="Unavailable">
+            </div>
+            <div class="item-info">
+                <h3 class="item-name">{{ title }} ({{ book.EditionNumber }} Edition) </h3>
+                <h4 class="penalty-info">PENALTY INFORMATION</h4>
+                <p class="item-description">Penalty Description: {{ penaltydesc }}</p>
+                <p class="item-description">Penalty Amount: {{ amount }}</p>
+                {{#if (eq requeststatus "Unresolved")}}
+                <p class="item-description">Penalty Issued: {{ formatDate issue }}</p>
+                {{/if}}
+                {{#if (eq requeststatus "Resolved")}}
+                <p class="item-description">Penalty Resolved: {{ formatDate resolved }}</p>
+                {{/if}}
+            </div>
+        </div>
+
         <div class="container1">
             <div class="row">
                 <div class="col">
@@ -71,27 +91,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="container2">
-            <h3 class="title">Penalty details</h3>
-            <p class="item-id">penalty Status: {{ requeststatus }}</p>
-            <div class="order-item">
-                <img src ="data:image/jpeg;base64,{{ book.ItemImage }}" alt="{{Title}}">
-            </div>
-            <div class="item-info">
-                <h3 class="item-name">{{ title }} ({{ book.EditionNumber }} Edition) </h3>
-                <h4 class="penalty-info">PENALTY INFORMATION</h4>
-                <p class="item-description">Penalty Description: {{ penaltydesc }}</p>
-                <p class="item-description">Penalty Amount: {{ amount }}</p>
-                {{#if (eq requeststatus "Unresolved")}}
-                <p class="item-description">Penalty Issued: {{ formatDate issue }}</p>
-                {{/if}}
-                {{#if (eq requeststatus "Resolved")}}
-                <p class="item-description">Penalty Resolved: {{ formatDate resolved }}</p>
-                {{/if}}
-            </div>
-        </div>
-
     </div>    
     
 

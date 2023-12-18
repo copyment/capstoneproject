@@ -68,7 +68,7 @@
             <div class="container">
                 {{#each borrowBooks}}
                 <div class="order-item">
-                    <img src="data:image/jpeg;base64,{{ this.Image }}" alt="{{this.Title}}">
+                    <img src="data:image/jpeg;base64,{{ this.Image }}" alt="Unavailable">
                     <div class="item-info">
                         <h3 class="item-name">{{this.Title}}</h3>
                         <p class="item-description">Author: {{this.Author}}</p>
@@ -77,7 +77,6 @@
                     <button type="submit" class="view-details-button">
                         <a href="/status?borrowid={{this._id}}">View Details</a>
                     </button>
-
                 </div>
                 {{/each}}
             </div>

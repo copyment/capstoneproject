@@ -191,6 +191,10 @@ const RequestSchema = new mongoose.Schema({
         type: String,
         ref: 'User',
     },
+    ItemId: {
+        type: String,
+        ref: 'Book',
+    },
     Accession: {type: String,},
     Fullname:{ type:String,},
     IDNumber:{ type:String,},

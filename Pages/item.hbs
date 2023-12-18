@@ -54,6 +54,7 @@
                     <div class = "btn-groups">
                         <form action="/check" method="post">
                             <input type="hidden" name="userId" value="{{ user._id }}">
+                            <input type="hidden" name="itemId" value="{{book._id}}">
                             <input type="hidden" name="name" value="{{user.Fullname}}">
                             <input type="hidden" name="userName" value="{{ user.Username }}">
                             <input type="hidden" name="idNumber" value="{{ user.IDNumber }}">
@@ -95,41 +96,45 @@
                 <!--------- FIRST ROW S--------->
                 <div class="row">
                     <div class="book-spec">
-                        <p> Item Specification </p>
-                        <div class="book-specs">
-                            <h4>Title: <span class = "book-detail">{{book.Title}}</span></h4>
-                        </div>
-                        <div class="book-specs">
-                            <h4>Author: <span class = "book-detail">{{book.CreatorAuthor}}</span></h4>
-                        </div>
-                        <div class="book-specs">
-                            <h4>Publisher: <span class = "book-detail">{{book.Publisher}}</span></h4>
-                        </div>
-                        <div class="book-specs">
-                            <h4>Language: <span class = "book-detail">{{book.Language}}</span></h4>
-                        </div>
-                        <div class="book-specs">
-                            <h4>Creation Date: <span class = "book-detail">{{book.CreationDate}}</span></h4>
-                        </div>
-                        <div class="book-specs">
-                            <h4>Genre: <span class = "book-detail">{{book.Genre}}</span></h4>
-                        </div>
-                        <div class="book-specs">
-                            <h4>Edition Number: <span class = "book-detail">{{book.EditionNumber}}</span></h4>
-                        </div>
-                        <div class="book-specs">
-                            <h4>Edition Title: <span class = "book-detail">{{book.EditionTitle}}</span></h4>
-                        </div>
-                        <div class="book-specs">
-                            <h4>Edition Year: <span class = "book-detail">{{book.EditionYear}}</span></h4>
-                        </div>
-                        <div class="book-specs">
-                            <h4>Country: <span class = "book-detail">{{book.Country}}</span></h4>
+                        <div class="spec-section">
+                            <h4>Item Specification</h4>
+                            <div class="book-specs">
+                                <h4>Title: <span class="book-detail">{{book.Title}}</span></h4>
+                            </div>
+                            <div class="book-specs">
+                                <h4>Author: <span class="book-detail">{{book.CreatorAuthor}}</span><h4>
+                            </div>
+                            <div class="book-specs">
+                                <h4>Publisher: <span class = "book-detail">{{book.Publisher}}</span></h4>
+                            </div>
+                            <div class="book-specs">
+                                <h4>Language: <span class = "book-detail">{{book.Language}}</span></h4>
+                            </div>
+                            <div class="book-specs">
+                                <h4>Creation Date: <span class = "book-detail">{{book.CreationDate}}</span></h4>
+                            </div>
+                            <div class="book-specs">
+                                <h4>Genre: <span class = "book-detail">{{book.Genre}}</span></h4>
+                            </div>
+                            <div class="book-specs">
+                                <h4>Edition Number: <span class = "book-detail">{{book.EditionNumber}}</span></h4>
+                            </div>
+                            <div class="book-specs">
+                                <h4>Edition Title: <span class = "book-detail">{{book.EditionTitle}}</span></h4>
+                            </div>
+                            <div class="book-specs">
+                                <h4>Edition Year: <span class = "book-detail">{{book.EditionYear}}</span></h4>
+                            </div>
+                            <div class="book-specs">
+                                <h4>Country: <span class = "book-detail">{{book.Country}}</span></h4>
+                            </div>
                         </div>
                     </div>
                     <div class="book-spec2">
-                        <p> Item Description </p>
-                            <span class = "book-detail">{{book.Description}}</span>
+                        <div class="spec-section">
+                            <h4>Item Description</h4>
+                                <p class="book-detail">{{book.Description}}</p>
+                        </div>
                     </div>
                 </div>
             </div>

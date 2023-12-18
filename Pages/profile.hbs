@@ -33,7 +33,7 @@
 
     <!--------- SIDE MENU S --------->
     <section class="hero">
-        <div class="side-bar">
+        <div class="side-bar" id="sidebar">
             <h4><i class="fa-solid fa-bars"> </i>USER</h4>
             <ul>
                 <li style="background-color:  rgb(83, 241, 151);">
@@ -63,7 +63,7 @@
 
     <!--------- USER INFORMATION S --------->
     <section class="sec-2">
-        <div class="content">
+         <div class="content">
              <div class="titile">
                 <h4> MY PROFILE </h4>
             </div>
@@ -76,10 +76,10 @@
                     </div>
 
 
-                <div class="profile-info">
-                    <h2>{{ user.Fullname }}</h2>
-                    <p>{{user.AccountType}} ({{ user.IDNumber }})</p> <h3></h3>
-                </div>
+                    <div class="profile-info">
+                        <h2>{{ user.Fullname }}</h2>
+                        <p>{{user.AccountType}} ({{ user.IDNumber }})</p> <h3></h3>
+                    </div>
 
                     <div class="profile-details">
                         <div class="detail-box2">
@@ -227,7 +227,10 @@
             });
 
             });
+
+            
 </script>
+
 
 <!-- ... (remaining HTML code) -->
 

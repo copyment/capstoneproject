@@ -25,96 +25,69 @@ section{
 }
 
 /*-------------- PAGE HEADER START --------------*/
-header{
+/*-------------- HEADER s --------------*/
+header {
   background-color: rgb(46, 139, 87);
-}
-header nav{
-    width: 85%;
-    margin: 0 auto;
+  margin-bottom: 30px;
+  width: 100%;
+  padding: 0px 20px; /* Adjust padding for better spacing */
+  box-sizing: border-box; /* Ensure padding doesn't affect total width */
 }
 
+header nav {
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 .logos {
-    width: 90px;
-    height: 60px;
-    cursor: pointer;
+  width: 90px;
+  max-width: 100%; /* Allow the logo to adapt to its container */
+  height: 60px;
+  cursor: pointer;
 }
 
 header nav .logo-search{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-    border-bottom: 1px solid #99999978;
-}
-header nav .logo-search .logo{
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 22px;
-    font-weight: bold;
-}
-header nav .logo-search .logo span{
-    color: #30f100;
-}
-header nav .logo-search .search-box{
-    width: 500px;
-    height: 40px;
-    position: relative;
-    margin-left: 500px;
-}
-header nav .logo-search .search-box input{
-    width: 100%;
-    height: 100%;
-    padding: 0 50px 0 12px;
-    border-radius: 30px;
-    outline: none;
-    border: none;
-}
-header nav .logo-search .search-box i{
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 50px;
-    text-align: center;
-    line-height: 40px;
-    border-left: 1px solid #99999978;
-    cursor: pointer;
-    color: #172856;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  border-bottom: 1px solid #99999978;
 }
 header nav .logo-search .icon a{
-    color: #fff;
-    margin-left: 10px;
-    font-size: 20px;
+  color: #fff;
+  margin-left: 10px;
+  font-size: 20px;
 }
 header nav .logo-search .icon a:hover{
-    color: #fccb3f;
+  color: #fccb3f;
 }
+
 header nav ul li{
-    display: inline-block;
-    padding: 18px 0;
-    margin-right: 50px;
-    position: relative;
+  display: inline-block;
+  padding: 18px 0;
+  margin-right: 50px;
+  position: relative;
 }
 header nav ul li a{
-    color: #fff;
-    text-transform: capitalize;
+  color: #fff;
+  text-transform: capitalize;
 }
 header nav ul li::after{
-    position: absolute;
-    content: '';
-    bottom: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0px;
-    height: 10px;
-    background-color: #e9eaf0;
-    clip-path: polygon(50% 40%, 0 100% , 100% 100%);
+  position: absolute;
+  content: '';
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0px;
+  height: 10px;
+  background-color: #e9eaf0;
+  clip-path: polygon(50% 40%, 0 100% , 100% 100%);
 }
 header nav ul li:hover::after,
 header nav ul li.active::after{
-    width: 12px;
+  width: 12px;
 }
-/*-------------- PAGE HEADER END --------------*/
+/*-------------- HEADER E --------------*/
 
 
 .container{
@@ -123,7 +96,6 @@ header nav ul li.active::after{
   align-items: center;
   padding:25px;
   min-height: 100vh;
-  background: linear-gradient(90deg, #2ecc71 60%, #27ae60 40.1%);
 }
 
 .container form{
@@ -132,7 +104,7 @@ header nav ul li.active::after{
   background: #fff;
   box-shadow: 0 5px 10px rgba(0,0,0,.1);
   margin-left: 50px;
-  height: 616px;
+  height: auto;
 }
 
 .container form .row{
@@ -178,6 +150,11 @@ header nav ul li.active::after{
   gap:15px;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .container form .row .col .flex .inputBox{
   margin-top: 5px;
 }
@@ -205,10 +182,10 @@ header nav ul li.active::after{
 .container2{
   display: block;
   padding:20px;
-  min-height: 92vh;
   background: white;
-  margin-left: 100px;
+  margin-left: 70px;
   width:500px;
+  height: 616px;;
   box-shadow: 0 5px 10px rgba(0,0,0,.1);
 }
 
@@ -251,4 +228,131 @@ header nav ul li.active::after{
 
 .your-custom-text-class{
   color: #fff;
+}
+
+@media screen and (max-width: 480px) {
+  header nav ul li {
+      margin-right: 10px; /* Or a smaller value */
+  }
+  .container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center align content */
+    padding: 10px; /* Adjust padding for better spacing */
+  }
+
+  .container form,
+  .container2 {
+    width: 100%; /* Take full width */
+    margin-left: 0; /* Remove the left margin */
+  }
+
+  .container2 {
+    margin-top: 20px; /* Add some space between the sections */
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  /* You can adjust font sizes, padding, and other styles for better readability on smaller screens */
+  /* For example, reducing font sizes or padding for better fit */
+  .container form .row .col .title {
+    font-size: 16px;
+    padding-bottom: 10px;
+  }
+  
+  /* Styles for the item list */
+  .container2 .order-item {
+    flex-direction: column; /* Stack item details vertically */
+    border: none; /* Remove border */
+    padding: 10px; /* Adjust padding */
+    margin-bottom: 15px; /* Increase spacing between items */
+    align-items: center;
+  }
+
+  .container2 .order-item img {
+    max-width: 100%; /* Make the image take full width */
+    margin-bottom: 10px; /* Add space between image and text */
+    height: auto;
+  }
+
+  .container2 .item-info {
+    width: 100%;
+    text-align: center; /* Center align item details */
+  }
+
+  .container form .row .col {
+    width: 100%; /* Set columns to take full width on smaller screens */
+  }
+
+  /* Arrange items in a column */
+  .container form .row .col .flex {
+    flex-direction: column;
+  }
+
+  /* Adjust font size and padding for better readability */
+  .container form .row .col .title {
+    font-size: 16px;
+    padding-bottom: 10px;
+  }
+  .container form .request-btn {
+    width: 100%; /* Make the button take full width */
+    height: auto;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  /* Adjust header navigation item spacing */
+  header nav ul li {
+      margin-right: 20px; /* Or a smaller value */
+  }
+  .container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center align content */
+    padding: 10px; /* Adjust padding for better spacing */
+  }
+  .container form,
+  .container2 {
+    width: 100%; /* Take full width */
+    margin-left: 0; /* Remove the left margin */
+  }
+  .container2 {
+    margin-top: 20px; /* Add some space between the sections */
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  /* You can adjust font sizes, padding, and other styles for better readability on smaller screens */
+  /* For example, reducing font sizes or padding for better fit */
+  .container form .row .col .title {
+    font-size: 16px;
+    padding-bottom: 10px;
+  }
+}
+
+
+@media screen and (min-width: 769px) and (max-width: 935px) {
+  .container2 .order-item {
+    flex-direction: column; /* Stack item details vertically */
+    border: none; /* Remove border */
+    padding: 10px; /* Adjust padding */
+    margin-bottom: 15px; /* Increase spacing between items */
+  }
+  .container2 .order-item img {
+    width: 100%; /* Make the image take full width */
+    margin-bottom: 5px; /* Add space between image and text */
+  }
+  .container2 .item-info {
+    text-align: center; /* Center align item details */
+  }
+  .container form .row .col .title {
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  header nav ul li {
+      margin-right: 70px; /* Adjust spacing */
+  }
 }
